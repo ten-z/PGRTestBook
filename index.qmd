@@ -1,0 +1,11 @@
+# Preface {.unnumbered}
+
+Code provided here is for the May 2024 text:
+
+> "A Practical Guide to Data Analysis Using R -- An Example-Based Approach", by John H Maindonald, W John Braun, and Jeffrey L Andrews.
+
+Code that is shown in the text is filled out to include all code for graphs. In chapter 2 and later, the text includes code only for those graphs that are specifically targeted at the methodology under discussion.
+
+The text has been available in digital format since early May 2024. It has been available in print in the UK from May 30, is due to be available in print in the USA in July, and in Australia and New Zealand in August 2024.
+
+For details for the UK, see: [A Practical Guide to Data Analysis Using R -- Cambridge University Press UK](https://www.cambridge.org/gb/universitypress/subjects/statistics-probability/computational-statistics-machine-learning-and-information-sc/practical-guide-data-analysis-using-r-example-based-approach)
