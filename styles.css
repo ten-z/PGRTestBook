@@ -1,0 +1,19 @@
+/* css styles */
+
+/* Modify the spacing between sidebar items */
+.sidebar-item {
+    margin-bottom: 20px; /* Adjust the bottom margin between sidebar items */
+    margin-top: 20px;
+}
+
+/* Modify the font styles of sidebar items */
+.sidebar-item a {
+    font-size: 15px; /* Adjust the font size of sidebar items */
+    color: #333; /* Change the font color of sidebar items */
+    text-decoration: none; /* Remove the underline from links */
+}
+
+/* Hover effect for sidebar items */
+.sidebar-item a:hover {
+    color: #666; /* Change the font color of sidebar items on hover */
+}
