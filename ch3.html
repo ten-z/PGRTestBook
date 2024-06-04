@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -79,13 +80,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
-  "type": "textbox",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
     "/",
     "s"
   ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -140,11 +142,6 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a href="https://ten-z.github.io/PGRTestLandingpage/" class="navbar-brand navbar-brand-logo">
-    <img src="./cover.png" alt="" class="navbar-logo">
-    </a>
-  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -152,17 +149,42 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="https://ten-z.github.io/PGRTestLandingpage/"> 
-<span class="menu-text">About</span></a>
+    <a class="nav-link" href="https://ten-z.github.io/SupplementsTest/"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://ten-z.github.io/PGRTestLandingpage/blog.html"> 
+    <a class="nav-link" href="https://ten-z.github.io/SupplementsTest/about.html"> 
+<span class="menu-text">Practical Guide</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://ten-z.github.io/SupplementsTest/blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./index.html" aria-current="page"> 
-<span class="menu-text">Book</span></a>
+<span class="menu-text">R code</span></a>
   </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="https://ten-z.github.io/SupplementsTest/afterword.html">
+ <span class="dropdown-text">Afterword</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://ten-z.github.io/SupplementsTest/RunningCode.html">
+ <span class="dropdown-text">Ways to Use Code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://ten-z.github.io/SupplementsTest/figFuns.html">
+ <span class="dropdown-text">Code for Selected Figures</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -1726,19 +1748,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-<p>© Copyright 2022, Author</p>
-</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
-    <div class="nav-footer-right">
-<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
-</div>
-  </div>
-</footer>
 
 
 
