@@ -29,26 +29,26 @@ book:
     - Appendix.qmd
   
   navbar:
-    pinned: true
     title: false
-    logo: /cover.png
-    logo-href: https://ten-z.github.io/PGRTestLandingpage/
-    
-    # your sub-pages
     left:
-      - text: "About"
-        href: https://ten-z.github.io/PGRTestLandingpage/
+      - text: "Home"
+        href: https://ten-z.github.io/SupplementsTest/
+      - text: "Practical Guide"
+        href: https://ten-z.github.io/SupplementsTest/about.html
       - text: "Blog"
-        href: https://ten-z.github.io/PGRTestLandingpage/blog.html
-      - text: "Book"
+        href: https://ten-z.github.io/SupplementsTest/blog.html
+      - text: "R code"
         href: index.qmd
         
-  search: 
-    location: navbar
-    type: textbox
-  page-footer:
-    left: "&copy; Copyright 2022, Author"
-    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
+    right: 
+      - text: "Resources"
+        menu:
+          - text: "Afterword"
+            href: https://ten-z.github.io/SupplementsTest/afterword.html
+          - text: "Ways to Use Code"
+            href: https://ten-z.github.io/SupplementsTest/RunningCode.html
+          - text: "Code for Selected Figures"
+            href: https://ten-z.github.io/SupplementsTest/figFuns.html
 
 bibliography: references.bib
 
