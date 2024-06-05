@@ -12,8 +12,8 @@ book:
   title: "R Code for 'A Practical Guide . . .'"
   author: "John Maindonald"
   date: "2024-06-02"
-  repo-url: https://github.com/jhmaindonald/code/
   downloads: [pdf, docx]
+  repo-url: https://github.com/jhmaindonald/code/
   
   comments:
     hypothesis: true
@@ -53,6 +53,10 @@ book:
             href: https://ten-z.github.io/SupplementsTest/RunningCode.html
           - text: "Code for Selected Figures"
             href: https://ten-z.github.io/SupplementsTest/figFuns.html
+          - text: "Download PDF"
+            href: https://ten-z.github.io/PGRTestBook/R-Code-for--A-Practical-Guide-.-.-.-.pdf
+          - text: "Download Docx"
+            href: https://ten-z.github.io/PGRTestBook/R-Code-for--A-Practical-Guide-.-.-.-.docx
 
 bibliography: references.bib
 
