@@ -31,6 +31,7 @@ library(knitr)
 ```
 
 ##### Packages required (plus any dependencies)
+
 DAAG lme4 afex MASS utils devtools qra glmmTMB DHARMa MEMSS forecast splines gamlss plotrix nlme
 
 Additionally, knitr and Hmisc are required in order to process the Rmd source file.
@@ -47,7 +48,7 @@ opts_chunk[['set']](cache.path='cache-', out.width="80%", fig.align="center",
 
 ### Section 7.1 Corn yield data --- analysis using `aov()`
 
-#####                  Corn yield measurements example
+##### Corn yield measurements example
 
 ```{r 7_1, echo=FALSE, w=4,h=2.5, las=0, out.width="65%"}
 ant111b <- within(DAAG::ant111b, Site <- reorder(site, harvwt, FUN=mean))
@@ -68,15 +69,23 @@ ant111b.aov <- aov(harvwt ~ 1 + Error(site), data=ant111b)
 summary(ant111b.aov)
 ```
 
-#####                   Interpreting the mean squares
-#####                    Details of the calculations
-#####         Practical use of the analysis of variance results
-#####                  Random effects vs. fixed effects
-#####            Nested factors -- a variety of applications
+##### Interpreting the mean squares
+
+##### Details of the calculations
+
+##### Practical use of the analysis of variance results
+
+##### Random effects vs. fixed effects
+
+##### Nested factors -- a variety of applications
+
 #### Subsection 7.1.1: A More Formal Approach
-#####       Relations between variance components and mean squares
-#####               Interpretation of variance components
-#####                      Intra-class correlation
+
+##### Relations between variance components and mean squares
+
+##### Interpretation of variance components
+
+##### Intra-class correlation
 
 ### Section 7.2 Analysis using `lme4::lmer()`
 
@@ -90,13 +99,13 @@ ant111b.lmer <- lmer(harvwt ~ 1 + (1 | site), data=ant111b)
 print(ant111b.lmer, ranef.comp="Variance")
 ```
 
-#####             The processing of  output from lmer()
+##### The processing of output from lmer()
 
 ```{r G2c}
 coef(summary(ant111b.lmer))
 ```
 
-#####             Fitted values and residuals in lmer()
+##### Fitted values and residuals in lmer()
 
 ```{r G2d}
 s2W <- 0.578; s2L <- 2.37; n <- 4
@@ -113,7 +122,7 @@ BLUP <- grandmean + ranef(ant111b.lmer)$site[[1]]
 rbind(BLUP=BLUP, sitemeans=sitemeans)
 ```
 
-#####  *Uncertainty in the parameter estimates --- profile likelihood and alternatives
+##### \*Uncertainty in the parameter estimates --- profile likelihood and alternatives
 
 ```{r G2f, message=FALSE}
 prof.lmer <- profile(ant111b.lmer)
@@ -135,7 +144,7 @@ update(gph, scales=list(tck=0.5), ylab="Normal deviate")
 ```{r 7_2, eval=F}
 ```
 
-#####         Modeling more than two levels of random variation
+##### Modeling more than two levels of random variation
 
 ### Section 7.3 Survey data, with clustering
 
@@ -195,7 +204,7 @@ afex::mixed(like ~ sex + PrivPub + (1 | school:class), method="KR", type=2,
 options(opt)       # Reset to previous contrasts setting
 ```
 
-#####              More detailed examination of the output
+##### More detailed examination of the output
 
 ```{r G3_1h}
 ## Use profile likelihood
@@ -261,7 +270,8 @@ par(opar)
 ```
 
 #### Subsection 7.3.2: Instructive, though faulty, analyses
-#####                Ignoring class as the random effect
+
+##### Ignoring class as the random effect
 
 ```{r G3_2a}
 science2.lmer <- lmer(like ~ sex + PrivPub + (1 | school),
@@ -274,7 +284,7 @@ print(coef(summary(science2.lmer)), digits=3)
 print(VarCorr(science2.lmer), comp="Variance", digits=3)
 ```
 
-#####             Ignoring the random structure in the data
+##### Ignoring the random structure in the data
 
 ```{r G3_2c}
 ## Faulty analysis, using lm
@@ -351,7 +361,7 @@ model.tables(kiwishade.aov, type="means", cterms="shade")
 with(kiwishade, sapply(split(yield, shade), mean))
 ```
 
-#### Subsection 7.4.3: \kern-4pt* The analysis of variance sums of squares breakdown
+#### Subsection 7.4.3: \kern-4pt\* The analysis of variance sums of squares breakdown
 
 ```{r G4_3a, size='normalsize'}
 ## For each plot, calculate mean, and differences from the mean
@@ -403,6 +413,7 @@ axis(2, at=1:4, labels=levels(gps), lwd=0, lwd.ticks=1)
 ```
 
 #### Subsection 7.4.4: The variance components
+
 #### Subsection 7.4.5: The mixed model analysis
 
 ```{r G4_5a}
@@ -415,7 +426,7 @@ data=kiwishade)
 print(kiwishade.lmer, ranef.comp="Variance", digits=3)
 ```
 
-#####                  Residuals and estimated effects
+##### Residuals and estimated effects
 
 ```{r 7_7, w=6, h=6, echo=FALSE, out.width="100%"}
 ## Panel A
@@ -488,7 +499,8 @@ print(update(gphB, main=mainB, xlab=""), position=c(0,0,1,0.52))
 ```{r 7_8, eval=F}
 ```
 
-#####                       Model fitting criteria
+##### Model fitting criteria
+
 #### Subsection 7.5.1: Model selection
 
 ```{r G5_1a}
@@ -536,14 +548,16 @@ with(tinting, table(sex[subs], agegp[subs]))
 ```
 
 ### Section 7.6 A mixed model with a betabinomial error
+
 #### Subsection 7.6.1: The betabinomial distribution
 
 ```{r G6_1a}
 ## devtools::install_github("jhmaindonald/qra")  # Use if not found on CRAN
 ```
 
-#####                              Notation
-#####                           Source of data
+##### Notation
+
+##### Source of data
 
 ```{r G6_1b}
 HawCon <- within(as.data.frame(qra::HawCon), {
@@ -748,7 +762,7 @@ LTbin.cll <- qra::extractLT(p=0.99, obj=HCbin.cll,
 rownames(LTbin.cll) <- shorten(rownames(LTbin.cll))
 ```
 
-#####               A warning against over-interpretation
+##### A warning against over-interpretation
 
 ### Section 7.7 Observation level random effects --- the `moths` dataset
 
@@ -785,9 +799,13 @@ detach("package:glmmTMB", character.only=TRUE)
 ```
 
 ### Section 7.8 Repeated measures in time
-#####              The theory of repeated measures modeling
-#####                       *Correlation structure
-#####         Different approaches to repeated measures analysis
+
+##### The theory of repeated measures modeling
+
+##### \*Correlation structure
+
+##### Different approaches to repeated measures analysis
+
 #### Subsection 7.8.1: Example -- random variation between profiles
 
 ```{r G8_1a}
@@ -811,7 +829,7 @@ xyplot(o2 ~ wattsPerKg, groups=id, data=humanpower1,
 ```{r 7_13, eval=F}
 ```
 
-#####               Separate lines for different athletes
+##### Separate lines for different athletes
 
 ```{r G8_1c}
 ## Calculate intercepts and slopes; plot Slopes vs Intercepts
@@ -823,7 +841,7 @@ round(coefs,3)
 c("Correlation between intercept and slope"=cor(coefs[,1],coefs[,2]))
 ```
 
-#####                    A random coefficients model
+##### A random coefficients model
 
 ```{r G8_1d}
 hp.lmer <- lmer(o2 ~ wattsPerKg + (wattsPerKg | id), data=humanpower1)
@@ -857,7 +875,7 @@ update(gph, xlab=list("Age", cex=1.4), ylab=list("Distance", cex=1.4),
 ```{r 7_14, eval=F}
 ```
 
-#####                    Preliminary data exploration
+##### Preliminary data exploration
 
 ```{r G8_2d}
 ## Use lmList() to find the slopes
@@ -904,7 +922,7 @@ t.test(blog[sex=="F"], blog[sex=="M"], var.equal=TRUE))
 # Specify var.equal=TRUE, to allow comparison with anova output
 ```
 
-#####                    A random coefficients model
+##### A random coefficients model
 
 ```{r G8_2h}
 keep <- !(Orthodont$Subject%in%c("M04","M13"))
@@ -945,7 +963,7 @@ orthdiffa.lmer <- update(orthdiff.lmer, formula=. ~ . -Sex:scAge)
 AIC(orthdiffa.lmer,orthdiff.lmer)
 ```
 
-#####                Correlation between successive times
+##### Correlation between successive times
 
 ```{r G8_2n}
 res <- resid(orthdiff.lmer)
@@ -956,7 +974,7 @@ orthsum <- apply(orth.arma,2,sum)
 orth.arma[, orthsum>0]
 ```
 
-#####             Fitting a sequential correlation structure
+##### Fitting a sequential correlation structure
 
 ```{r G8_2o}
 library(nlme)
@@ -968,20 +986,28 @@ orthdiff.lme <- lme(logdist ~ Sex * scAge, random = ~1|Subject,
 orthdiff.lme$modelStruct$corStruct
 ```
 
-#####             *The variance for the difference in slopes
+##### \*The variance for the difference in slopes
 
 ### Section 7.9: Further notes on multilevel models
+
 #### Subsection 7.9.1: Sources of variation -- complication or focus of interest?
+
 #### Subsection 7.9.2: Predictions from models with a complex error structure
-#####  Consequences from assuming an overly simplistic error structure
+
+##### Consequences from assuming an overly simplistic error structure
+
 #### Subsection 7.9.3: An historical perspective on multilevel models
+
 #### Subsection 7.9.4: Meta-analysis
+
 #### Subsection 7.9.5: Functional data analysis
+
 #### Subsection 7.9.6: Error structure in explanatory variables
 
 ### Exercises (7.12)
 
 7.1
+
 ```{r G12a}
 n.omit <- 2
 take <- rep(TRUE, 48)
@@ -991,7 +1017,9 @@ kiwishade.lmer <- lmer(yield ~ shade + (1|block) + (1|block:plot),
 vcov <- VarCorr(kiwishade.lmer)
 print(vcov, comp="Variance")
 ```
+
 7.6
+
 ```{r G12b}
 cult.lmer <- lmer(ct ~ Cultivar + Dose + factor(year) +
                        (-1 + Dose | gp), data = DAAG::sorption, REML=TRUE)
@@ -1005,4 +1033,22 @@ code <- knitr::knit_code$get()
 txt <- paste0("\n## ", names(code),"\n", sapply(code, paste, collapse='\n'))
 writeLines(txt, con="/Users/johnm1/pkgs/PGRcode/inst/doc/ch7.R")
 }
+```
+
+```{=html}
+<script src="https://giscus.app/client.js"
+        data-repo="ten-z/PGRTestBook"
+        data-repo-id="R_kgDOMEfiPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMEfiPs4Cf5L1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
 ```

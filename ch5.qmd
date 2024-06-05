@@ -32,12 +32,15 @@ opts_chunk[['set']](fig.width=5, fig.height=5, comment=NA, eval=F)
 ```
 
 ##### Packages required (with dependencies)
+
 DAAG car mgcv colorspace HistData gamlss dplyr tidyr MASS ggplot2 latticeExtra qgam VGAM survival HistData
 
-Additionally, knitr is required in order to process the Rmd source file. 
+Additionally, knitr is required in order to process the Rmd source file.
 
 ### Section 5.1 Generalized linear models
+
 #### Subsection 5.1.1: Linking the expected value to the covariate
+
 ```{r E1_1a, eval=FALSE}
 ## Simplified plot showing the logit link function
 p <- (1:39)/40
@@ -81,9 +84,13 @@ mtext(side = 3, line = 0.5, "C: SD[logit(p)]", adj=0, cex=1.0)
 ```
 
 #### Subsection 5.1.2: Noise terms need not be normal
-#### Subsection 5.1.3:  Variation that is greater than binomial or Poisson
-#####              Least squares versus logistic regression
+
+#### Subsection 5.1.3: Variation that is greater than binomial or Poisson
+
+##### Least squares versus logistic regression
+
 #### Subsection 5.1.4: Log odds in contingency tables
+
 #### Subsection 5.1.5: Logistic regression with a continuous explanatory variable
 
 ```{r E1_5a}
@@ -150,7 +157,7 @@ abline(-6.47, 5.57, lwd=0.8)
 DAAG::sumry(anes.glm, digits=2)
 ```
 
-#####                       A note on model output 
+##### A note on model output
 
 ```{r E1_5f}
 ## Tp get coefficients, SEs, and associated statistics, specify:
@@ -218,7 +225,8 @@ mtext(side=3, line=4.5, "B: Pairs plot, difference/sum variables", cex=1.25, at=
 par(oldpar)
 ```
 
-#####           Implications for the Variance Inflation Factor
+##### Implications for the Variance Inflation Factor
+
 #### Subsection 5.2.1: Choose explanatory terms, and fit model
 
 ```{r E2g}
@@ -343,7 +351,8 @@ print(rbind("frogs (all variables)" = frogs.acc,
 ```
 
 #### Subsection 5.2.5: Cholera deaths in London --- 1849 to 1855
-#####             By air, or by water --- the 1849 epidemic
+
+##### By air, or by water --- the 1849 epidemic
 
 ```{r 5_9, fig.width=7, fig.height=2.25, fig.show='hold', echo=F, out.width="100%"}
 opar <- par(mgp=c(2.1,.4,0), mfrow=c(1,3))
@@ -366,7 +375,7 @@ par(opar)
 ```{r 5_9, eval=F}
 ```
 
-#####             The 1854 epidemic --- a natural experiment
+##### The 1854 epidemic --- a natural experiment
 
 ```{r E2_4c, echo=FALSE}
 tab <- cbind("#houses"=c(40046,26107,256423), "#Deaths"=c(1263,98,1422),
@@ -400,6 +409,7 @@ round(signif(coef(summary(UCB.glm)),4), 3)
 ```
 
 ### Section 5.4 Models for counts --- poisson, quasipoisson, and negative binomial
+
 #### Subsection 5.4.1: Data on aberrant crypt foci
 
 ```{r 5_10, w=2.65, h=2.5, left=-1, ps=9, tcl=-0.35, echo=FALSE, out.width="40%"}
@@ -479,7 +489,7 @@ avlength <- with(DAAG::moths, sapply(split(meters, habitat), mean))
 round(rbind(Astats, avlen=avlength),1)
 ```
 
-#####                     A quasipoisson model
+##### A quasipoisson model
 
 ```{r E4_2e}
 A.glm <- glm(A ~ habitat + log(meters), family=quasipoisson,
@@ -504,7 +514,7 @@ range(AfitSE[habitat!="Bank"])))
 round(setNames(cfSE, c("SEbank", "SEotherMIN", "SEotherMAX")), digits=2)
 ```
 
-#####           A more satisfactory choice of reference level
+##### A more satisfactory choice of reference level
 
 ```{r E4_2i}
 moths <- DAAG::moths
@@ -552,7 +562,7 @@ out <- capture.output(summary(mothsCon.lss, type="qr", digits=1))
 cat(out[-(3:10)], sep="\n")
 ```
 
-#####                          Diagnostic plots
+##### Diagnostic plots
 
 ```{r 5_13, echo=FALSE, fig.width=7.25, fig.height=5.5, left=-0.5, mgp=c(1.85,0.5,0), top=1, ps=9, echo=FALSE, out.width="72%", tidy=TRUE}
 plot(mothsCon.lss, panel=panel.smooth)
@@ -561,7 +571,7 @@ plot(mothsCon.lss, panel=panel.smooth)
 ```{r 5_13, eval=F}
 ```
 
-#####          Use of the square root link function
+##### Use of the square root link function
 
 ```{r E4_3f}
 Asqrt.lss <- gamlss(A ~ habitat + sqrt(meters), trace=FALSE,
@@ -576,8 +586,9 @@ out <- capture.output(summary(Asqrt.lss, digits=1))[-(3:10)]
 cat(out, sep="\n")
 ```
 
-#### Subsection 5.4.4:  Negative binomial versus alternatives ---  hurricane deaths
-#####               Aside -- a quasibinomial binomial fit
+#### Subsection 5.4.4: Negative binomial versus alternatives --- hurricane deaths
+
+##### Aside -- a quasibinomial binomial fit
 
 ```{r 5_14, echo=FALSE, fig.width=3.5, fig.height=3.35, left=-1.0, ps=12, mgp=c(1.85,0.5,0), top=1,  echo=FALSE, out.width="24%"}
 ordx <- with(DAAG::hurricNamed, order(BaseDam2014))
@@ -591,8 +602,9 @@ plot(hurr.glm, col=adjustcolor('black', alpha=0.4),
 ```{r 5_14, eval=F}
 ```
 
-#####          Negative binomial versus power transformed scale
-#####                Fit a negative binomial (NBI) model
+##### Negative binomial versus power transformed scale
+
+##### Fit a negative binomial (NBI) model
 
 ```{r E4_4b, warning=FALSE, message=FALSE, results="hide"}
 library(gamlss)
@@ -606,7 +618,7 @@ zres <- resid(hurrNB.gamlss, what="z-scores")  ## equivalent normal quantiles
 table(sign(mures))
 ```
 
-#####           Fit linear model to power transformed response
+##### Fit linear model to power transformed response
 
 ```{r E4_4d}
 hurr.lm <- lm(car::yjPower(deaths,-0.2) ~ log(BaseDam2014), data=hurric[-56,])
@@ -621,7 +633,7 @@ resPower <- log(hurric[-56,"deaths"]+1) - hatPower
 table(sign(resPower))
 ```
 
-#####    Compare NBI and power transform fits with smoothed quantiles
+##### Compare NBI and power transform fits with smoothed quantiles
 
 ```{r E4_4f, warning=FALSE, message=FALSE}
 library(qgam, quietly=TRUE)
@@ -690,6 +702,7 @@ detach(package:gamlss)
 ```
 
 ### Section 5.5 Fitting smooths
+
 #### Subsection 5.5.1: Handedness of first-class cricketers in the UK
 
 ```{r table-left-rt}
@@ -698,6 +711,7 @@ colnames(tab) <- c('live','dead')
 tab <- cbind(addmargins(tab, margin=2), prop.table(tab, margin=1))
 tab
 ```
+
 ```{r 5_16, echo=FALSE, fig.width=4.5, fig.height=3.5, top=2.5, warning=FALSE, mgp=c(2.5,0.5,0), fig.show="hold", wo='48.5%'}
 library(mgcv)
 library(latticeExtra)
@@ -733,9 +747,13 @@ update(gph+as.layer(gph1)+as.layer(gph2), par.settings=DAAG::DAAGtheme(color=TRU
 ```
 
 ### Section 5.6 Additional notes on generalized linear models
-#### Subsection 5.6.1:  Residuals, and estimating the dispersion
-#####         Other choices of link function for binomial models
-#####             Quasi models --- estimating the dispersion
+
+#### Subsection 5.6.1: Residuals, and estimating the dispersion
+
+##### Other choices of link function for binomial models
+
+##### Quasi models --- estimating the dispersion
+
 #### Subsection 5.6.2: Standard errors and $z$- or $t$-statistics for binomial models
 
 ```{r E6_2a}
@@ -824,7 +842,7 @@ d <- deviance(inhalerP.vglm) - deviance(inhaler.vglm)
 c(Difference=d, "p-Value"=pchisq(3.416, df=1, lower.tail=FALSE))
 ```
 
-#### Subsection 5.7.2:  Loglinear Models
+#### Subsection 5.7.2: Loglinear Models
 
 ### Section 5.8 Survival analysis
 
@@ -945,6 +963,7 @@ srt=90, adj=0.5, col="gray20", cex=0.75)
 ```
 
 #### Subsection 5.8.4: Hazard rates
+
 #### Subsection 5.8.5: The Cox proportional hazards model
 
 ```{r E8_5a}
@@ -999,6 +1018,7 @@ box(col="gray")
 ### Exercises (5.11)
 
 5.1
+
 ```{r E11a}
 inhibition <- rbind(
 conc =c(0.1,0.5, 1,10,20,30,50,70,80,100,150),
@@ -1015,4 +1035,22 @@ code <- knitr::knit_code$get()
 txt <- paste0("\n## ", names(code),"\n", sapply(code, paste, collapse='\n'))
 writeLines(txt, con="/Users/johnm1/pkgs/PGRcode/inst/doc/ch5.R")
 }
+```
+
+```{=html}
+<script src="https://giscus.app/client.js"
+        data-repo="ten-z/PGRTestBook"
+        data-repo-id="R_kgDOMEfiPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMEfiPs4Cf5L1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
 ```

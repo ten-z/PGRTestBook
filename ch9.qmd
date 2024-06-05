@@ -34,10 +34,7 @@ opts_chunk[['set']](eval=F)
 
 ##### Packages required (plus any dependencies)
 
-Packages used are: DAAG MASS RColorBrewer teigen BiocManager DAAGbio 
-hddplot lmtest splines cobalt mice datasets car micemd oz randomForest
-ggplot2 latticeExtra mvtnorm teigen limma hddplot mgcv MatchIt sandwich
-gridExtra DAAGbio mlbench (exercise).
+Packages used are: DAAG MASS RColorBrewer teigen BiocManager DAAGbio hddplot lmtest splines cobalt mice datasets car micemd oz randomForest ggplot2 latticeExtra mvtnorm teigen limma hddplot mgcv MatchIt sandwich gridExtra DAAGbio mlbench (exercise).
 
 Additionally, knitr and Hmisc are required in order to process the Rmd source file.
 
@@ -55,6 +52,7 @@ suppressPackageStartupMessages(library(latticeExtra))
 ```
 
 ### Section 9.1: Multivariate exploratory data analysis
+
 ```{r I1a}
 ## Make the lattice package and the possum dataset available
 library(latticeExtra)
@@ -62,6 +60,7 @@ possum <- DAAG::possum
 ```
 
 #### Subsection 9.1.1: Scatterplot matrices
+
 ```{r 9_1, w=6.8, h=4.25, lwd=0.5, echo=FALSE, out.width="100%"}
 ## Colors distinguish sexes; symbols distinguish sites
 sitenames <- row.names(DAAG::possumsites)[c(1,2,4:6,3,7)]
@@ -82,7 +81,9 @@ update(c("A: Scatterplot matrix"=gphA, "B: Cloud plot"=gphB),
 ```
 
 #### Subsection 9.1.2: Principal components analysis
-#####                     Preliminary data scrutiny
+
+##### Preliminary data scrutiny
+
 ```{r I1_2a}
 ## Ratios of largest to smallest values: possum[, 6:14] (DAAG)
 possum <- DAAG::possum
@@ -117,7 +118,8 @@ print(possum.prc$rotation, digits=2)
 ## By default, blanks are shown for loadings < 0.1 in magnitude
 ```
 
-#####           The stability of the principal components plot
+##### The stability of the principal components plot
+
 ```{r 9_3, w=5.5, h=2.4, cache=FALSE, warning=FALSE, echo=FALSE, out.width="100%"}
 suppressPackageStartupMessages(library(ggplot2))
 theme_set(theme_gray(base_size=8))
@@ -146,8 +148,11 @@ gph + scale_colour_manual(values=c("m"="blue","f"="red"))  +
 ```
 
 #### Subsection 9.1.3: Multi-dimensional scaling
-#####                         Distance measures
-#####                             Ordination
+
+##### Distance measures
+
+##### Ordination
+
 ```{r 9_4, w=7.25, h=3.6, echo=FALSE, out.width="100%"}
 ## Code that will display individual graphs
 d.possum <- dist(possum[,6:14])  # Euclidean distance matrix
@@ -166,9 +171,10 @@ update(c(gph1, gph2, layout=c(2,1)),
 ```{r 9_4, eval=FALSE}
 ```
 
-#####                            Binary data
+##### Binary data
 
 ### Section 9.2: Principal component scores in regression
+
 ```{r I2a}
 ## Principal components: data frame socsupport (DAAG)
 socsupport <- DAAG::socsupport
@@ -180,6 +186,7 @@ oldpar <- par(fg='gray40',col.axis='gray20',lwd=0.5,col.lab='gray20')
 pairs(ss.pr1$x[, 1:3], col='gray40', gap=0.2)
 par(oldpar)
 ```
+
 ```{r 9_5, eval=F}
 ```
 
@@ -225,7 +232,9 @@ xlab ="1st principal component")
 ```
 
 ### Section 9.3: Cluster analysis
+
 #### Subsection 9.3.1: Hierarchical Clustering
+
 ```{r I3_1a}
 library(mvtnorm)
 makeClust <- function(n=6, d1=4, d2=4, sigs=c(1, 1, 1, 1), seed=NULL){
@@ -323,6 +332,7 @@ plot(clusres_comp2, sub="", xlab="", ylab="", cex=1.25, cex.main=1.65,
 ```
 
 #### Subsection 9.3.2: $k$-Means Clustering
+
 ```{r 9_11, echo=FALSE, w=6, h=2.7, mfrow=c(1,2), out.width="95%"}
 set.seed(35151)
 kdat <- makeClust(n=100, d1=5, d2=5, sigs=c(.5, .5, 6, 6))
@@ -335,7 +345,8 @@ plot(kdat, col=rainbow(4)[kmres$cluster], pch=kmres$cluster+1,
 ```{r 9_11, eval=FALSE}
 ```
 
-#####         Comments on $k$-means and hierarchical clustering
+##### Comments on $k$-means and hierarchical clustering
+
 #### Subsection 9.3.3: Mixture model-based clustering
 
 ```{r 9_12, w=7, h=2.1, echo=F, top=1.5, mfrow=c(1,3), mgp=c(2.8,0.5,0), out.width='100%'}
@@ -397,10 +408,12 @@ par(fig=c(0,1,0,1))
 ```{r 9_14, eval=FALSE}
 ```
 
-#####             Issues of high parametrization and scaling
+##### Issues of high parametrization and scaling
+
 #### Subsection 9.3.4: Relationship between $k$-means and mixture models
 
 ### Section 9.4: Discriminant analysis
+
 #### Subsection 9.4.1: Example -- plant architecture
 
 ```{r 9_15, echo=FALSE, w=7.2, h=3.5, left=-0.5, top=2, rt=3, las=0, mgp=c(1.8,0.5,0), tcl=-0.3, cex.lab=0.9, echo=FALSE, ps=10, mfrow=c(1,2), out.width="90%"}
@@ -432,8 +445,10 @@ plot(bladelen ~ bladewid, data=leafshape17, pch=c(1,3)[arch+1])
 ## For panel B, specify log="xy" in the call to plot()
 ```
 
-#####      Logistic regression, versus linear discriminant analysis
+##### Logistic regression, versus linear discriminant analysis
+
 #### Subsection 9.4.2: Logistic regression
+
 ```{r I4_2a}
 ## Fit logistic regression model
 leafshape17 <- DAAG::leafshape17
@@ -442,7 +457,8 @@ data=leafshape17)
 print(DAAG::sumry(leaf17.glm)$coef, digits=2)
 ```
 
-#####                        Predictive accuracy
+##### Predictive accuracy
+
 ```{r I4_2b}
 set.seed(29)
 leaf17.cv <- DAAG::CVbinary(leaf17.glm)
@@ -456,6 +472,7 @@ round(unlist(leaf17.cv[c("acc.training","acc.cv")]),3)
 ```
 
 #### Subsection 9.4.3: Linear discriminant analysis
+
 ```{r I4_3a}
 suppressPackageStartupMessages(library(MASS))
 ## Discriminant analysis; data frame leafshape17 (DAAG)
@@ -463,7 +480,8 @@ leaf17.lda <- lda(arch ~ logwid+loglen, data=DAAG::leafshape17)
 print(leaf17.lda)
 ```
 
-#####                 Assessments of predictive accuracy
+##### Assessments of predictive accuracy
+
 ```{r I4_3b}
 set.seed(29)
 leaf17cv.lda <- lda(arch ~ logwid+loglen, data=leafshape17, CV=TRUE)
@@ -476,8 +494,10 @@ cbind(tab, c(tab[1,1], class.acc=tab[2,2])/(tab[,1]+tab[,2]))
 cat("Overall proportion correct =", sum(tab[row(tab)==col(tab)])/sum(tab), "\n")
 ```
 
-#####   The function qda(), and other alternatives to lda()
+##### The function qda(), and other alternatives to lda()
+
 #### Subsection 9.4.4: An example with more than two groups
+
 ```{r I4_4a}
 ## Linear discriminant calculations for possum data
 possum <- DAAG::possum
@@ -485,7 +505,6 @@ possum.lda <- lda(site ~ hdlngth + skullw + totlngth + taill + footlgth +
                   earconch + eye + chest + belly, data=na.omit(possum))
 # na.omit() omits any rows that have one or more missing values
 ```
-
 
 ```{r 9_16, echo=FALSE, w=5.5, h=5.5, left=-1, top=2, las=0, mgp=c(1.8,0.5,0), tcl=-0.3, cex.lab=0.9, echo=FALSE, mfrow=c(1,2), out.width="68%"}
 PGtheme <- DAAG::DAAGtheme(color=TRUE, cex=0.6, pch=c(3,4,0,8,2,10,1), alpha=0.8)
@@ -501,7 +520,6 @@ update(possum.splom, auto.key=list(text=sitenames,
                                   columns=4, between=1, between.columns=2))
 ```
 
-
 ```{r I4_4c, eval=FALSE}
 plot(possum.lda, dimen=3, col=1:9)
 # Scatterplot matrix - scores on 1st 3 canonical variates
@@ -513,9 +531,10 @@ plot(possum.lda, dimen=3, col=1:9)
 print(possum.lda, digits=3)
 ```
 
+### Section 9.5: \*High-dimensional data --- RNA-Seq gene expression
 
-### Section 9.5: *High-dimensional data --- RNA-Seq gene expression
-#####        Setup for installing and using Bioconductor packages
+##### Setup for installing and using Bioconductor packages
+
 ```{r I5_1a, eval=FALSE}
 ## For latest details, see: https://www.bioconductor.org/install/
 if (!require("BiocManager", quietly = TRUE))
@@ -524,8 +543,10 @@ BiocManager::install()
 BiocManager::install('limma','multtest')
 ```
 
-#####                *Brief note on mRNA technical issues
+##### \*Brief note on mRNA technical issues
+
 #### Subsection 9.5.1: Data and design matrix setup
+
 ```{r I5_1b}
 counts <- DAAGbio::plantStressCounts
 colSums(counts)
@@ -543,7 +564,8 @@ design <- model.matrix(~0+treatment)
 colnames(design) <- levels(treatment)
 ```
 
-#####                  A two-dimensional representation
+##### A two-dimensional representation
+
 ```{r I5_1e, eval=FALSE}
 library(limma)
 v <- voom(counts, design, plot=TRUE)
@@ -564,7 +586,8 @@ mtext(side=3, line=-0.25, adj=0.605, "B", outer=TRUE)
 ```{r 9_17, eval=FALSE}
 ```
 
-#####                         Fitting the model
+##### Fitting the model
+
 ```{r I5_1f}
 fit <- lmFit(v, design)
 ```
@@ -578,6 +601,7 @@ efit2 <- eBayes(fit2)
 ```
 
 #### Subsection 9.5.2: From $p$-values to false discovery rate (FDR)
+
 ```{r I5_2a}
 ## First contrast only; Drought-CTL
 print(round(topTable(efit2, coef=1, number=4),15), digits=3)
@@ -601,10 +625,12 @@ summary(decideTests(fit2))
 ## summary(decideTests(fit2, p.value=0.001))
 ```
 
-
 ### Section 9.6: High dimensional data from expression arrays
+
 #### Subsection 9.6.1: Molecular classification of cancer --- an older technology
-#####    Breakdown of ALL B-type data, with one observation excluded
+
+##### Breakdown of ALL B-type data, with one observation excluded
+
 ```{r I6_1a}
 library(hddplot)
 data(golubInfo)
@@ -625,7 +651,9 @@ levels(tissue.mfB) <- list("b_f"="BM:f", "b_m"="BM:m", "PBm"="PB:m")
 ```
 
 #### Subsection 9.6.2: Classifications and associated graphs
-#####                   Preliminary data manipulation
+
+##### Preliminary data manipulation
+
 ```{r I6_2a, eval=xtras, w=7.5, h=3.5, mfrow=c(1,2), out.width="100%"}
 ## Display distributions for the first 20 observations
 boxplot(data.frame(GolubB[, 1:20]))  # First 20 columns (observations)
@@ -633,7 +661,8 @@ boxplot(data.frame(GolubB[, 1:20]))  # First 20 columns (observations)
 boxplot(data.frame(GolubB[sample(1:7129, 20), ]))
 ```
 
-#####                           Flawed graphs
+##### Flawed graphs
+
 ```{r 9_18, echo=FALSE, w=7.2, h=3.75, left=-1.5, top=2, cex.lab=0.9, ps=10, mfrow=c(1,2), cache=FALSE, results='hide', out.width="80%"}
 colr <- c("red","blue","gray40", "magenta")
 tissue.mf <- golubInfo[, "tissue.mf"]
@@ -700,6 +729,7 @@ scoreplot(simscores)
 ```
 
 #### Subsection 9.6.3: The mean-variance relationship
+
 ```{r 9_19, w=7.2, h=3.5, left=0.5, top=1, bot=0.5, ps=9, mgp=c(2.25,0.5,0), mfrow=c(1,2), echo=FALSE, out.width="90%"}
 par(oma=c(0,0,1,0))
 designG <- model.matrix(~0+tissue.mfB)
@@ -716,8 +746,10 @@ mtext(side=3, line=-0.275, adj=0.585, "B", outer=TRUE)
 ```{r 9_19, eval=FALSE}
 ```
 
-#####    Cross-validation to determine the optimum number of features
-#####   Cross-validation for a range of choices of number of features
+##### Cross-validation to determine the optimum number of features
+
+##### Cross-validation for a range of choices of number of features
+
 ```{r I6_3b, cache=FALSE}
 ##  Cross-validation to determine the optimum number of features
 ## 10-fold (x4). Warning messages are omitted.
@@ -738,7 +770,6 @@ rtissue.mfB.badcv <- defectiveCVdisc(rGolubB, cl=tissue.mfB,
 nfeatures=1:23,
 foldids=rtissue.mfB.cv$folds)
 ```
-
 
 ```{r 9_20, echo=FALSE, w=7.2, h=3.5, left=-1.5, top=1, cex.lab=0.9, echo=FALSE, ps=9, mfrow=c(1,2), out.width="100%"}
 cv1 <- tissue.mfB.cv
@@ -776,8 +807,8 @@ plot.acc(cv1, badcv1, AB="A: Golub data (as for Figure 9.97A)")
 plot.acc(cv2, badcv2, ylab="", AB="B: Random data", add.legend=FALSE)
 ```
 
+##### Which features?
 
-#####                          Which features?
 ```{r I6_3d}
 genelist <- matrix(tissue.mfB.cv$genelist[1:3, ,], nrow=3)
 tab <- table(genelist, row(genelist))
@@ -795,12 +826,13 @@ scoreplot(scorelist = tissue.mfB.scores, cl.circle=NULL,
 prefix="B-cell subset -", fg='gray')
 ```
 
-
 ```{r 9_21, eval=FALSE}
 ```
 
-#####                  The key role of cross-validation
+##### The key role of cross-validation
+
 #### Subsection 9.6.5: Estimating contrasts, and calculating False Discovery Rates
+
 ```{r I6_5a}
 fitG <- lmFit(vG, designG)
 contrs <- c("b_f-b_m", "b_f-PBm", "b_m-PBm")
@@ -810,7 +842,8 @@ fit2 <- contrasts.fit(fitG, contr.matrix)
 fit2 <- eBayes(fit2)
 ```
 
-#####           From $p$-values to false discovery rate (FDR)
+##### From $p$-values to false discovery rate (FDR)
+
 ```{r I6_5b}
 print(topTable(fit2, number=5), digits=2)
 ```
@@ -821,10 +854,12 @@ summary(decideTests(fit2))
 ## summary(decideTests(fit2, p.value=0.001))
 ```
 
-#####                      Distributional extremes
+##### Distributional extremes
 
 ### Section 9.7: Causal inference from observational data --- balance and matching
+
 #### Subsection 9.7.1: Tools for the task
+
 ```{r I7_1a}
 library(DAAG)
 ## Columns 4:7 are factors; columns 9:10 (re75 & re78) are continuous
@@ -936,7 +971,6 @@ trtdat$pres74 <- factor(!is.na(trtdat$re74), labels=c("<NA>","pres"))
 table(trtdat$pres74)
 ```
 
-
 ```{r 9_23, echo=FALSE, w=7.2, h=3.2, warning=FALSE, message=FALSE, out.width="90%"}
 suppressPackageStartupMessages(library(mgcv))
 missing.gam <- gam(pres74 ~ s(age) + s(educ) + ethnicid + marr + nodeg +
@@ -946,13 +980,14 @@ bwplot(pres74~predict(missing.gam), data=trtdat, xlab="Propensity score",
     {panel.bwplot(x,y); panel.points(x,as.numeric(y)-0.5,pch="|")})
 ```
 
-
 ```{r I7_1f}
 with(trtdat, table(pres74,z75))
 ```
 
 #### Subsection 9.7.2: Regression comparisons
-#####                      Regression calculations
+
+##### Regression calculations
+
 ```{r I7_2a, echo=FALSE}
 library(DAAG)
 dimnam <- list(c("psid1","psid2","psid3","cps1","cps2","cps3","nswdemo"),
@@ -974,7 +1009,9 @@ nsw.gam <- gam(log(re78+30)~ trt + ethnicid + z75 + nodeg + s(age) +
 ```
 
 #### Subsection 9.7.3: The use of scores to replace covariates
+
 #### Subsection 9.7.4: Two-dimensional representation using randomForest proximities
+
 ```{r I7_4a}
 suppressPackageStartupMessages(library(randomForest))
 form <- trt ~ age + educ + ethnicid + marr + nodeg + z75 + re75log
@@ -982,7 +1019,6 @@ nsw.rf <- randomForest(form, data=nsw, sampsize=c(297,297))
 p.rf <- predict(nsw.rf,type="prob")[,2]
 sc.rf <- log((p.rf+0.001)/(1-p.rf+0.001))
 ```
-
 
 ```{r 9_24, echo=FALSE, w=5, h=2.5, warning=FALSE, message=FALSE, out.width="90%"}
 ## Add to p.rf approx half of difference of max(p.rf) from 1
@@ -1008,7 +1044,6 @@ col8 <- DAAG::DAAGtheme(color=TRUE, fontsize=list(text=8, points=5),
 print(update(gph1, par.settings=col8, layout = c(3, 1)))
 ```
 
-
 ```{r I7_4c}
 omitn <- match(c("PropScore","weights","subclass"), names(dat2RF), nomatch=0)
 matchISO.rf <-matchit(trt ~ age + educ + ethnicid + marr + nodeg + z75 +
@@ -1029,7 +1064,8 @@ dat1RF.glm <- glm(I(re78>0) ~ trt, data = dat1RF, weights = weights,
 lmtest::coeftest(dat1RF.glm, vcov. = vcovCL, cluster = ~subclass)
 ```
 
-#####               Derivation and investigation of scores
+##### Derivation and investigation of scores
+
 ```{r I7_4e}
 library(mgcv)
 formG <- trt ~ ethnicid + marr+ z75 + s(age) + s(educ) + s(re75log)
@@ -1075,7 +1111,6 @@ match.gam
 ## In the first place, look only at the first 4 columns
 ```
 
-
 ```{r 9_25, w=4.5, h=2.1, left=-1, rt=-0.5, top=1.5, ps=9, echo=FALSE, message=FALSE, warning=FALSE, out.width="80%"}
 opar <- par(cex=0.75, bty="n")
 plot(match.gam, type='jitter', interactive=F, 
@@ -1083,8 +1118,6 @@ plot(match.gam, type='jitter', interactive=F,
 box(fg="gray")
 par(opar)
 ```
-
-
 
 ```{r 9_26, echo=FALSE, w=6.5, h=2.7, message=FALSE, warning=FALSE, fig.show="hold", results="hide", out.width="100%"}
 suppressPackageStartupMessages(library(gridExtra))
@@ -1112,7 +1145,6 @@ gg2 <- ggplot(datGpaired)+
 grid.arrange(gg1, gg2, ncol=2) 
 ```
 
-
 ```{r 9_26, eval=FALSE}
 ```
 
@@ -1127,8 +1159,10 @@ datG.glm <- glm(I(re78>0) ~ trt, data = datG, weights = weights, family=binomial
 lmtest::coeftest(datG.glm, vcov. = vcovCL, cluster = ~subclass)[1:2,]
 ```
 
-#####                  Alternative matching approaches
+##### Alternative matching approaches
+
 #### Subsection 9.7.5: Coarsened exact matching
+
 ```{r I7_5a}
 form <- trt ~ age + educ + ethnicid + marr + nodeg + z75 + re75log
 match5.cem <- matchit(formula=form, data=nswG, method="cem", cutpoints=5)
@@ -1139,7 +1173,6 @@ datcem6 <- match.data(match6.cem)
 match5.cem
 match6.cem
 ```
-
 
 ```{r 9_27, echo=FALSE, w=6.5, h=2.7, warning=FALSE, quietly=FALSE, fig.show="hold", results="hide", out.width="100%"}
 plt1 <- cobalt::love.plot(match5.cem, position="none", star.char="†",
@@ -1153,7 +1186,6 @@ plt2 <- cobalt::love.plot(match6.cem, position="none", star.char="†",
 grid.arrange(plt1, plt2, ncol=2) + theme(plot.title = element_text(size=11))
 ```
 
-
 ```{r I7_5c, warning=FALSE}
 library(sandwich)
 datcem5.lm <- lm(re78log ~ trt, data = datcem5, weights = weights)
@@ -1165,8 +1197,8 @@ family=binomial)
 lmtest::coeftest(datcem6.glm, vcov. = vcovHC)
 ```
 
-
 ### Section 9.8: Multiple imputation
+
 ```{r I9a}
 suppressPackageStartupMessages(library(mice))
 Boys <- with(subset(mice::boys, age>=9), 
@@ -1194,14 +1226,12 @@ impArray <- sapply(impDFs, function(x)as.matrix(x), simplify='array')
 boysAv <- as.data.frame(apply(impArray, 1:2, mean))  
 ```
 
-
 ```{r 9_28, echo=FALSE, w=6.5, h=3.15, mfrow=c(1,2), out.width="90%"}
 ## Check that straight line terms in `age` and `loghgt` are enough
 suppressPackageStartupMessages(library(mgcv))
 boys.gam <- gam(logbmi~s(age) + s(loghgt), data=boysAv)
 plot(boys.gam, resid=TRUE, cex=1.5, shift=mean(predict(boys.gam)), fg='gray')
 ```
-
 
 ```{r I8d}
 fits <- with(boys.mids, lm(logbmi~age+loghgt))
@@ -1225,7 +1255,8 @@ tab <- setNames(cbind(ctab[,c(1,3,5,7)], ctab[,c(2,4,6,8)]),
 round(tab,3)
 ```
 
-#####           Time series cross-sectional data -- an example
+##### Time series cross-sectional data -- an example
+
 ```{r I9f}
 airquality <- datasets::airquality
 airq <- cbind(airquality[, 1:4], day=1:nrow(airquality))
@@ -1246,26 +1277,28 @@ airq.imp <- mice(airq, m=20, print=FALSE)
   ## 20 imputations shows up issues of concern very clearly
 ```
 
-
 ```{r 9_29, w=9, h=5.25, mar=c(2.1,3.1, 0.6,0.6), echo=FALSE, results="hide", warning=F, out.width='100%'}
 ## Code for figure
 out <- micemd::overimpute(airq.imp)
 ```
 
-
 ```{r 9_29, eval=F}
 ```
 
-#####                        Some further points
+##### Some further points
 
 ### Section 9.9: Further reading
-#####             Data with more variables than observations
-#####                          Causal inference
-#####                        Multiple imputation
+
+##### Data with more variables than observations
+
+##### Causal inference
+
+##### Multiple imputation
 
 ### Section 9.10: Exercises
 
 9.3
+
 ```{r I7a, eval=xtras}
 library(DAAG)
 oz::oz(sections=c(3:5, 11:16))
@@ -1275,7 +1308,9 @@ points(long, lat);
 text(long, lat, row.names(possumsites), pos=c(2,4,2,2,4,2,2))
 })
 ```
+
 9.7
+
 ```{r I7b}
 data(wine, package='gclus')
 mat <- with(wine, 
@@ -1283,7 +1318,9 @@ mat <- with(wine,
 colnames(mat) <- rownames(mat) <- 1:5
 print(mat)
 ```
+
 9.9a
+
 ```{r I7c, eval=xtras}
 `confusion` <-
 function(actual, predicted, digits=4){
@@ -1300,14 +1337,18 @@ DAAG::confusion(Vehicle$Class, lhat)
 DAAG::confusion(Vehicle$Class, qhat)
 randomForest::randomForest(Class ~ ., data=Vehicle, CV=TRUE)
 ```
+
 9.9c
+
 ```{r I7d, eval=xtras}
 Vehicle.lda <- MASS::lda(Class ~ ., data=Vehicle)
 twoD <- predict(Vehicle.lda)$x
 ggplot2::quickplot(twoD[,1], twoD[,2], color=Vehicle$Class,
                    geom=c("point","density2d"))
 ```
+
 9.10
+
 ```{r I7e, eval=xtras}
 library(ape); library(MASS)
 library(DAAGbio)
@@ -1323,7 +1364,9 @@ text(primates.cmd, labels=row.names(primates.cmd), pos=rtleft)
 d <- dist(primates.cmd)
 sum((d-primates.dist)^2)/sum(primates.dist^2)
 ```
+
 9.11
+
 ```{r I7g, eval=xtras}
 library(DAAG)
 pacific.dist <- dist(x = as.matrix(rockArt[-c(47,54,60,63,92),28:641]), 
@@ -1336,7 +1379,9 @@ table(apply(symmat, 2, function(x) sum(x<1)))
 pacific.cmd <- cmdscale(pacific.dist)
 pacific.sam <- sammon(pacific.dist)
 ```
+
 9.15
+
 ```{r eval=F}
 Wine <- setNames(cbind(stack(wine, select=2:14), rep(wine[,-1], 13)),
                  c("value", "measure", "Class"))
@@ -1377,4 +1422,22 @@ code <- knitr::knit_code$get()
 txt <- paste0("\n## ", names(code),"\n", sapply(code, paste, collapse='\n'))
 writeLines(txt, con="/Users/johnm1/pkgs/PGRcode/inst/doc/ch9.R")
 }
+```
+
+```{=html}
+<script src="https://giscus.app/client.js"
+        data-repo="ten-z/PGRTestBook"
+        data-repo-id="R_kgDOMEfiPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMEfiPs4Cf5L1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
 ```

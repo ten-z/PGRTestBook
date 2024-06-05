@@ -31,6 +31,7 @@ library(knitr)
 ```
 
 ##### Packages required (plus any dependencies)
+
 DAAG ggsci latticeExtra ggplot2 mice car forecast mgcv tseries
 
 Additionally, knitr and Hmisc are required in order to process the Rmd source file.
@@ -43,7 +44,9 @@ opts_chunk[['set']](out.width="80%", fig.align="center",
 ```
 
 ### Section 6.1: Time series -- some basic ideas
+
 #### Subsection 6.1.1: Time series objects
+
 ```{r F1_1a}
 class("lakeHuron")
 ## Use `time()` to extract the `time` attribute
@@ -64,6 +67,7 @@ jobsBC <- ts(jobs[, "BC"], start=c(1995,1), frequency=12)
 ```
 
 #### Subsection 6.1.2: Preliminary graphical exploration
+
 ```{r 6_1, w=5, h=1.8, ps=10, mgp=c(2.25,0.5,0), echo=FALSE}
 ## Plot depth measurements: ts object LakeHuron (datasets)
 plot(LakeHuron, ylab="depth (in feet)", xlab = "Time (in years)", fg="gray")
@@ -71,6 +75,7 @@ plot(LakeHuron, ylab="depth (in feet)", xlab = "Time (in years)", fg="gray")
 
 ```{r 6_1, eval=FALSE}
 ```
+
 \vspace*{-4pt}
 
 ```{r F1_1c, eval=xtras}
@@ -159,7 +164,9 @@ acf(LakeHuron)
 ```
 
 #### Subsection 6.1.4: Autoregressive (AR) models
-#####                       The `AR(1)` model
+
+##### The `AR(1)` model
+
 ```{r F1_3a}
 ## Yule-Walker autocorrelation estimate
 LH.yw <- ar(LakeHuron, order.max = 1, method = "yw")  # autocorrelation estimate
@@ -172,12 +179,14 @@ LH.mle$x.mean             # estimated series mean
 LH.mle$var.pred           # estimated innovation variance
 ```
 
-#####               The general AR(p) model
+##### The general AR(p) model
+
 ```{r F1_3b}
 ar(LakeHuron, method="mle")
 ```
 
-#####                   ~Moving average (MA) processes
+##### \~Moving average (MA) processes
+
 ```{r 6_3, echo=FALSE, eval=FALSE}
 lag.max <- 11
 offset <- 0.09
@@ -219,8 +228,10 @@ update(gph, par.settings=parset,
 ```{r 6_3, w=6.0, h=3.25, echo=FALSE}
 ```
 
-#### Subsection 6.1.5: ~Autoregressive moving average (ARMA) models -- theory
+#### Subsection 6.1.5: \~Autoregressive moving average (ARMA) models -- theory
+
 #### Subsection 6.1.6: Automatic model selection?
+
 ```{r F1_5a, message=FALSE, warning=FALSE}
 library(forecast, quietly=TRUE)
 (aaLH <- auto.arima(LakeHuron, approximation=F, stepwise=F))
@@ -282,7 +293,7 @@ plot(forecast(aaLH,  h=12, level=c(80,95)))  # Panel B; ARIMA(2,1,1)
 auto.arima(LakeHuron, d=0, max.Q=0, approximation=F, stepwise=F)
 ```
 
-#####                    Use of simulation as a check
+##### Use of simulation as a check
 
 ```{r 6_5, w=4.25, h=2.1, echo=FALSE, out.width='100%'}
 col3 <- c('gray50','black','gray80')
@@ -409,7 +420,8 @@ Box.test(resid(mdbrtRain.gam), lag=10, type="Ljung")
 qqnorm(resid(mdbrtRain.gam))
 ```
 
-#####                       The mdbAVt series
+##### The mdbAVt series
+
 ```{r F2f}
 mdbAVt.gam <- gam(mdbAVt ~ s(CO2)+s(SOI)+s(IOD), data=bomreg)
 auto.arima(resid(mdbAVt.gam))
@@ -455,6 +467,7 @@ cbind(AIC(aaFitCO2, aaFitpol2CO2), BIC=BIC(aaFitCO2, aaFitpol2CO2))
 ```
 
 #### Subsection 6.1.8: The `gamm()` function, with a correlated errors model
+
 ```{r F3a}
 SOI.gam <- gam(SOI~s(Year), data=bomreg)
 auto.arima(resid(SOI.gam))             # sigma^2 = 43.4
@@ -476,7 +489,8 @@ cbind(AIC(SOI.gam, SOIma2.gamm$lme, SOIar2.gamm$lme),
       BIC=BIC(SOI.gam, SOIma2.gamm$lme, SOIar2.gamm$lme)[,2])
 ```
 
-#####       The dataset `airquality` (153 days, New York, 1972)
+##### The dataset `airquality` (153 days, New York, 1972)
+
 ```{r F3c}
 ## Add time in days from May 1 to data. 
 airq <- cbind(airquality[, 1:4], day=1:nrow(airquality))
@@ -506,6 +520,7 @@ Ozone1.gam <- update(Ozone.gam, formula=rt4Ozone ~ s(Solar.R)+s(Wind)+s(Temp))
 ```
 
 #### Subsection 6.1.9: A calibration problem with time series errors
+
 ```{r F4a}
 flakes <- DAAG::frostedflakes
 calib.arima <- with(flakes, auto.arima(IA400, xreg=Lab))
@@ -526,7 +541,8 @@ fcast2 <- with(flakes, forecast(IA400/Lab, h=100))
 plot(fcast2, fg='gray', main="B: Forecast from ETS(M,N,N)", adj=0, font.main=1)
 ```
 
-### Section 6.2:  Nonlinear time series
+### Section 6.2: Nonlinear time series
+
 ```{r F5a}
 x <- numeric(999)  # x will contain the ARCH(1) errors
 x0 <- rnorm(1)
@@ -541,24 +557,30 @@ suppressPackageStartupMessages(library(tseries))
 garch(x, order = c(0, 1), trace=FALSE)
 ```
 
-
 ### Section 6.3: Further reading
-#####                         Spatial statistics
-#####               Other time series models and packages
+
+##### Spatial statistics
+
+##### Other time series models and packages
 
 ### Section 6.4: Exercises
 
 6.4
+
 ```{r F7b, eval=FALSE}
 xx <- matrix(x, ncol=1000)
 ```
+
 6.7
+
 ```{r F7c, eval=FALSE}
 library(tseries)
 data(ice.river)
 river1 <- diff(log(ice.river[, 1]))
 ```
+
 6.9
+
 ```{r F7d}
 library(forecast)
 Eu1 <- window(EuStockMarkets[,1], end = c(1996, 260))
@@ -567,7 +589,9 @@ Eu1f <- forecast(Eu1nn, end=end(EuStockMarkets[,1]))
 plot(Eu1f, ylim=c(1400, 7000))
 lines(EuStockMarkets[,1])
 ```
+
 6.10a
+
 ```{r F7e}
 airq <- cbind(airquality[, 1:4], day=1:nrow(airquality))
   # Column 5 ('day' starting May 1) replaces columns 'Month' & 'Day')
@@ -576,8 +600,10 @@ temp.gam <- gam(Temp~s(day), data=airq)
 tempAR1.gamm <- gamm(Temp~s(day), data=airq, correlation=corAR1())
 plot(temp.gam, res=T, cex=2)
 plot(tempAR1.gamm$gam, res=T, cex=2)
-``` 
+```
+
 6.10b
+
 ```{r F7f, eval=F}
 (Phi <- coef(tempAR1.gamm$lme$modelStruct$corStruct, unconstrained = FALSE) )
 Sigma <- sqrt(tempAR1.gamm$gam$sig2)
@@ -595,4 +621,22 @@ code <- knitr::knit_code$get()
 txt <- paste0("\n## ", names(code),"\n", sapply(code, paste, collapse='\n'))
 writeLines(txt, con="/Users/johnm1/pkgs/PGRcode/inst/doc/ch6.R")
 }
+```
+
+```{=html}
+<script src="https://giscus.app/client.js"
+        data-repo="ten-z/PGRTestBook"
+        data-repo-id="R_kgDOMEfiPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMEfiPs4Cf5L1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
 ```

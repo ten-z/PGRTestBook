@@ -21,6 +21,7 @@ output:
 }
 }
 ```
+
 ```{r CodeControl, echo=FALSE}
 xtras <- F
 library(knitr)
@@ -29,9 +30,10 @@ opts_chunk[['set']](eval=F)
 ```
 
 ##### Packages required (plus any dependencies)
+
 DAAG car MASS AICcmodavg leaps BayesFactor splines
 
-Additionally, Hmisc and knitr are required in order to process the Rmd source file. 
+Additionally, Hmisc and knitr are required in order to process the Rmd source file.
 
 ```{r setup, cache=FALSE, echo=FALSE}
 Hmisc::knitrSet(basename="multilr", lang='markdown', fig.path="figs/g", w=7, h=7)
@@ -94,7 +96,7 @@ cat(out[5:7], sep='\n')
 anova(allbacks.lm)
 ```
 
-#####                   Omission of the intercept term
+##### Omission of the intercept term
 
 ```{r C1_1b}
 ## Show rows 1, 7, 8 and 15 only
@@ -141,6 +143,7 @@ print(coef(summary(allbacks.lm13)), digits=2)
 ```
 
 ### Section 3.2 The interpretation of model coefficients
+
 #### Subsection 3.2.1: Times for Northern Irish hill races
 
 ```{r 3_3, w=4.5, h=4.65, echo=FALSE, lwd=0.75, out.width="49%"}
@@ -168,8 +171,9 @@ par(oldpar)
 ```{r 3_3, eval=F}
 ```
 
-#####         What is special about logarithmic transformations?
-#### Subsection 3.2.2: An  equation that predicts dist/time
+##### What is special about logarithmic transformations?
+
+#### Subsection 3.2.2: An equation that predicts dist/time
 
 ```{r C2_1c}
 ##  Hold climb constant at mean on logarithmic scale
@@ -227,6 +231,7 @@ plot(mphGradient.lm, caption=c('A: Resids vs Fitted', 'B: Normal Q-Q',
 'C: Scale-Location', '', 'D: Resids vs Leverage'),
 cex.caption=0.85, fg='gray')
 ```
+
 ```{r 3_5, eval=FALSE}
 ```
 
@@ -334,14 +339,20 @@ summary(lm(brainwt ~ lsize + bodywt, data = litters), digits=3)$coef
 ```
 
 #### Subsection 3.2.6: Issues for causal interpretation
-#####                   Effects of lifestyle on health
-#####          The studies mostly agree.  But what do they say?
-#####                     Adjusting for confounders
+
+##### Effects of lifestyle on health
+
+##### The studies mostly agree. But what do they say?
+
+##### Adjusting for confounders
 
 ### Section 3.3 Choosing the model, and checking it out
-#####                   Effects of lifestyle on health
-#####          The studies mostly agree.  But what do they say?
-#####                     Adjusting for confounders
+
+##### Effects of lifestyle on health
+
+##### The studies mostly agree. But what do they say?
+
+##### Adjusting for confounders
 
 ```{r C3_2a}
 oddbooks.lm <- lm((weight) ~ log(thick)+log(height)+log(breadth),
@@ -356,7 +367,7 @@ termplot(oddbooks.lm, partial.resid = TRUE, smooth=panel.smooth,
 col.res="gray40", transform.x=TRUE, fg="gray")
 ```
 
-#### Subsection 3.3.3: A more formal approach to the choice of  transformation
+#### Subsection 3.3.3: A more formal approach to the choice of transformation
 
 ```{r C3_3a}
 ## Use car::powerTransform
@@ -369,7 +380,8 @@ form <- mph ~ log(dist) + log(gradient)
 summary(car::powerTransform(form, data=nihr))
 ```
 
-#####          The use of transformations --- further comments
+##### The use of transformations --- further comments
+
 #### Subsection 3.3.4: Accuracy estimates, fitted values and new observations
 
 ```{r C3_4a}
@@ -442,7 +454,6 @@ lines(hat, citimes2[,"upr"]-hat2, col = "blue", lty=2, lwd=1.5)
 g3.10()
 ```
 
-
 ```{r C3_4d}
 timeClimb2.lm <- update(timeClimb.lm, formula = . ~ . + I(logdist^2))
 ```
@@ -487,9 +498,11 @@ plot(power.lm, cex.caption=0.85, fg="gray",
 ```
 
 #### Subsection 3.3.6: Strategies for fitting models --- suggested steps
-#####                         Diagnostic checks
 
-### Section 3.4 Robust regression,  outliers, and influence
+##### Diagnostic checks
+
+### Section 3.4 Robust regression, outliers, and influence
+
 #### Subsection 3.4.1: Making outliers obvious --- robust regression
 
 ```{r 3_13, echo=FALSE, w=3.5, h=3.5, lwd=0.75, out.width="55%"}
@@ -531,16 +544,19 @@ mtext(side=3, line=0.75, "B: Resistant (lqs) fit", adj=0, cex=1.1)
 ## plot(lhills2k.lm, which=2)
 ```
 
-#####      Outliers, influential or not, should be taken seriously
+##### Outliers, influential or not, should be taken seriously
+
 #### Subsection 3.4.2: Leverage, influence, and Cook's distance
-#####       $^*$ Leverage and the hat matrix --- technical details
+
+##### $^*$ Leverage and the hat matrix --- technical details
 
 ```{r C4_2a}
 round(unname(hatvalues(timeClimb.lm)),2)
 ```
 
-#####               Influential points and Cook's distance
-#####                          Dynamic graphics
+##### Influential points and Cook's distance
+
+##### Dynamic graphics
 
 ```{r 3_15, echo=FALSE, w=4, h=4.5, top=1, lwd=0.75, ps=10, out.width="40%"}
 ## Residuals versus leverages
@@ -574,7 +590,7 @@ with(nihills, Identify3d(x=log(dist), y=log(climb), z=log(time),
 ## repeatedly.  Create an empty box to exit from point identification mode.
 ```
 
-#####              Influence on the regression coefficients
+##### Influence on the regression coefficients
 
 ```{r 3_16, w=4.25, h=1.4, bot=1, left=1, top=1, ps=9, mgp=c(1.25,0.25,0), echo=FALSE}
 allbacks.lm0 <- lm(weight ~ -1+volume+area, data=allbacks)
@@ -600,7 +616,7 @@ par(family="sans")
 ```{r 3_15, eval=F}
 ```
 
-#####                *Additional diagnostic plots
+##### \*Additional diagnostic plots
 
 ```{r C4_2d, w=4.5, h=4.5, out.width="50%"}
 ## As an indication of what is available, try
@@ -608,7 +624,9 @@ car::influencePlot(allbacks.lm)
 ```
 
 ### Section 3.5 Assessment and comparison of regression models
-#### Subsection 3.5.1: *AIC, AICc, BIC, and Bayes Factors for normal  theory  regression models
+
+#### Subsection 3.5.1: \*AIC, AICc, BIC, and Bayes Factors for normal theory regression models
+
 ```{r C5_3a}
 ## Calculations using mouse brain weight data
 mouse.lm <- lm(brainwt ~ lsize+bodywt, data=DAAG::litters)
@@ -636,7 +654,7 @@ xyplot(AICc12+AICc34+AIC+BIC ~ n, data=df, type='l', auto.key=list(columns=4),
 ```{r 3_17, eval=F}
 ```
 
-#####             The functions drop1() and add1()
+##### The functions drop1() and add1()
 
 ```{r C5_3c}
 ## Obtain AIC or BIC using `drop1()` or `add1()`
@@ -646,7 +664,7 @@ drop1(mouse.lm, scope=~lsize, k=log(n))   # BIC, w/wo `lsize`
 add1(mouse0.lm, scope=~bodywt+lsize)     # AIC, w/wo `lsize`, alternative
 ```
 
-#####    The use of Bayesfactor::lmBF to compare the two models
+##### The use of Bayesfactor::lmBF to compare the two models
 
 ```{r C5_3d}
 suppressPackageStartupMessages(library(BayesFactor))
@@ -707,7 +725,8 @@ signif(summary(scot.lm)[['sigma']]^2, 4)
 ```
 
 #### Subsection 3.5.4: Further points and issues
-#####   Patterns in the diagnostic plots -- are they more than hints?
+
+##### Patterns in the diagnostic plots -- are they more than hints?
 
 ```{r 3_18, w=5.2, h=3.25, echo=FALSE, mfrow=c(2,4), out.width="95%XS"}
 set.seed(91)        # Reproduce plots as shown in text
@@ -715,18 +734,23 @@ gph <- DAAG::plotSimDiags(timeClimb.lm, layout=c(4,2), which=1)
 update(gph, par.settings=list(fontsize=list(text=8, points=5)))
 ```
 
-```{r 3_18, eval=F|
-```
+`{r 3_18, eval=F|`
 
-#####           What is the scatter about the fitted response
-#####                  Model selection and tuning risks
-#####  Generalization to new contexts requires a random sample of contexts
-#####       What happens if we do not transform the hillrace data?
-#####                    Are "errors in x" an issue?
+##### What is the scatter about the fitted response
+
+##### Model selection and tuning risks
+
+##### Generalization to new contexts requires a random sample of contexts
+
+##### What happens if we do not transform the hillrace data?
+
+##### Are "errors in x" an issue?
 
 ### Section 3.6 Problems with many explanatory variables
+
 #### Subsection 3.6.1: Variable selection issues
-#####        Variable selection -- a simulation with random data
+
+##### Variable selection -- a simulation with random data
 
 ```{r C6_1a}
 y <- rnorm(100)
@@ -749,7 +773,7 @@ best3 <- capture.output(DAAG::bestsetNoise(m=100, n=40))
 cat(best3[9:14], sep='\n')
 ```
 
-#####     The extent of selection effects -- a detailed simulation:
+##### The extent of selection effects -- a detailed simulation:
 
 ```{r 3_20, echo=FALSE, w=4.25, h=2.75, top=1, ps=10, out.width="60%",message=FALSE, warning=FALSE, mgp=c(3,0.5,0)}
 oldpar <- par(fg='gray20',col.axis='gray20',lwd=0.5,col.lab='gray20')
@@ -762,10 +786,13 @@ mtext(side=1, line=1.75, "Number selected from")
 ```{r 3_20, eval=F}
 ```
 
-#####  Cross-validation that accounts for the variable selection process
-#####                *Regularization approaches
+##### Cross-validation that accounts for the variable selection process
+
+##### \*Regularization approaches
+
 #### Subsection 3.6.2: Multicollinearity
-#####                  An example -- compositional data
+
+##### An example -- compositional data
 
 ```{r C6_2a}
 data(Coxite, package="compositions")  # Places Coxite in the workspace
@@ -856,7 +883,7 @@ car::vif(BC.lm)
 plot(BC.lm, eval=xtras)
 ```
 
-#####                  Numbers that do not quite add up
+##### Numbers that do not quite add up
 
 ```{r C6_3e}
 coxiteR <- coxite
@@ -866,11 +893,13 @@ print(coef(summary(coxiteR.lm)), digits=2)
 print(DAAG::vif(lm(porosity ~ .-E, data=coxiteR)), digits=2)
 ```
 
-#####                  Remedies for  multicollinearity
+##### Remedies for multicollinearity
 
 ### Section 3.7 Errors in x
-#####                   Measurement of dietary intake
-#####           Simulations of the effect of measurement error
+
+##### Measurement of dietary intake
+
+##### Simulations of the effect of measurement error
 
 ```{r 3_22, echo=FALSE, w=6.5, h=2.5, out.width="100%"}
 gph <- DAAG::errorsINx(gpdiff=0, plotit=FALSE, timesSDx=(1:4)/2,
@@ -884,8 +913,9 @@ update(gph, par.settings=parset)
 ```{r 3_22, eval=F}
 ```
 
-#####                     *Two explanatory variables
-#####  Two explanatory variables, one measured without error -- a simulation
+##### \*Two explanatory variables
+
+##### Two explanatory variables, one measured without error -- a simulation
 
 ```{r 3_23, echo=FALSE, w=5, h=2.7, out.width="80%"}
 gph <- DAAG::errorsINx(gpdiff=1.5, timesSDx=(1:2)*0.8, layout=c(3,1),
@@ -899,9 +929,11 @@ update(gph, par.settings=parset)
 ```{r 3_23, eval=F}
 ```
 
-#####                  An arbitrary number of variables
-#####     *The classical error model versus the Berkson error model
-#####    Using missing value approaches to address measurement error
+##### An arbitrary number of variables
+
+##### \*The classical error model versus the Berkson error model
+
+##### Using missing value approaches to address measurement error
 
 ### Section 3.8 Multiple regression models -- additional points
 
@@ -911,7 +943,8 @@ b <- as.vector(coef(lm(weight ~ volume + area, data=allbacks)))
 c("_Intercept_"=-b[1]/b[3], volume=-b[2]/b[3], weight=1/b[3])
 ```
 
-#####                      Unintended correlations
+##### Unintended correlations
+
 #### Subsection 3.8.2: Missing explanatory variables
 
 ```{r 3_24, echo=FALSE, w=5, h=1.6, out.width="90%"}
@@ -936,7 +969,8 @@ scales=list(cex=1.0, tck=0.35))
 ```{r 3_24, eval=F}
 ```
 
-#####                             Strategies
+##### Strategies
+
 #### Subsection 3.8.3: Added variable plots
 
 ```{r C8_3a}
@@ -993,8 +1027,9 @@ mtext(side=3, line=0.5, "C: From AVP", adj=-0, cex=0.85)
 ```{r 3_26, eval=F}
 ```
 
-#####                Alternatives to Added Variable Plots
-#####                         *Algebraic details
+##### Alternatives to Added Variable Plots
+
+##### \*Algebraic details
 
 ```{r C8_3i}
 ab1 <- coef(yONx.lm)
@@ -1039,6 +1074,7 @@ signif(coef(summary(nihr.nls)),3)
 ### Exercises (3.11)
 
 3.1
+
 ```{r C11a}
 ## ## Set up factor that identifies the `have' cities
 cities <- DAAG::cities
@@ -1059,7 +1095,9 @@ print(gphB, split=c(2,1,2,1))
 cities.lm1 <- lm(POP1996 ~ have+POP1992, data=cities)
 cities.lm2 <- lm(log(POP1996) ~ have+log(POP1992), data=cities)
 ```
+
 3.8a
+
 ```{r C11d}
 nihills.lm <- lm(time ~ dist+climb, data=DAAG::nihills)
 nihillsX.lm <- lm(time ~ dist+climb+dist:climb, data=DAAG::nihills)
@@ -1067,12 +1105,16 @@ anova(nihills.lm, nihillsX.lm)   # Use `anova()` to make the comparison
 coef(summary(nihillsX.lm))       # Check coefficient for interaction term
 drop1(nihillsX.lm)
 ```
+
 3.11
+
 ```{r C11e}
 log(time) ~ log(dist) + log(climb)    ## lm model
 time ~ alpha*dist + beta*I(climb^2)   ## nls model
 ```
+
 3.13
+
 ```{r C11f}
 x1 <- runif(10)            # predictor which will be missing
 x2 <- rbinom(10, 1, 1-x1)
@@ -1083,7 +1125,9 @@ coef(y.lm)
 y.lm2 <- lm(y ~ x1 + factor(x2))   # correct model
 coef(y.lm2)
 ```
+
 3.16
+
 ```{r C11g, eval=xtras, w=6, h=2.7, mfrow=c(1,2), out.width="95%"}
 bomData <- DAAG::bomregions2021
 nraw.lqs <- MASS::lqs(northRain ~ SOI + CO2, data=bomData)
@@ -1091,7 +1135,9 @@ north.lqs <- MASS::lqs(I(northRain^(1/3)) ~ SOI + CO2, data=bomData)
 plot(residuals(nraw.lqs) ~ Year, data=bomData)
 plot(residuals(north.lqs) ~ Year, data=bomData)
 ```
+
 3.17f
+
 ```{r C11l, w=5, h=5, out.width="40%"}
 socpsych <- subset(DAAG::repPsych, Discipline=='Social')
 with(socpsych, scatter.smooth(T_r.R~T_r.O))
@@ -1114,4 +1160,22 @@ code <- knitr::knit_code$get()
 txt <- paste0("\n## ", names(code),"\n", sapply(code, paste, collapse='\n'))
 writeLines(txt, con="/Users/johnm1/pkgs/PGRcode/inst/doc/ch3.R")
 }
+```
+
+```{=html}
+<script src="https://giscus.app/client.js"
+        data-repo="ten-z/PGRTestBook"
+        data-repo-id="R_kgDOMEfiPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMEfiPs4Cf5L1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
 ```

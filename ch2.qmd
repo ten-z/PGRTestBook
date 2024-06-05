@@ -7,6 +7,7 @@ output:
       in_header: "preamble.tex"
     latex_engine: xelatex
 ---
+
 ```{css, echo=F}
 .colbox {
   padding: 1em;
@@ -29,11 +30,10 @@ opts_chunk[['set']](eval=F)
 ```
 
 ##### Packages required (plus any dependencies)
-DAAG MASS qra investr HistData BHH2 xtable BayesFactor boot zoo boot 
-MCMCpack,
 
-Additionally, knitr and Hmisc are required in order to process the Rmd source file. 
+DAAG MASS qra investr HistData BHH2 xtable BayesFactor boot zoo boot MCMCpack,
 
+Additionally, knitr and Hmisc are required in order to process the Rmd source file.
 
 ```{r setup, cache=FALSE, echo=FALSE}
 Hmisc::knitrSet(basename="models", lang='markdown', fig.path="figs/g", w=7, h=7)
@@ -46,8 +46,11 @@ opts_chunk[['set']](cache.path='cache-', out.width="80%", fig.align="center",
 ```
 
 ### Section 2.1 Model assumptions
+
 #### Subsection 2.1.1: Inferences are never assumption free
+
 #### Subsection 2.1.2: Has account been taken of all relevant effects?
+
 ```{r B1_2a}
 ## Tabulate by Admit and Gender
 byGender <- 100*prop.table(margin.table(UCBAdmissions, margin=1:2), margin=2)
@@ -107,10 +110,13 @@ margin.table(UCBAdmissions, margin=2:3)
 ```
 
 #### Subsection 2.1.3: The limitations of models
+
 #### Subsection 2.1.4: Use the methodology that best suits the task in hand?
 
 ### Section 2.2: t-statistics, binomial proportions, and correlations
+
 #### Subsection 2.2.1: One- and two-sample t-tests
+
 #### Subsection 2.2.2: A two-sample comparison
 
 ```{r B2_2a}
@@ -126,7 +132,7 @@ print(stats2, digits=4)
 with(DAAG::two65, t.test(heated, ambient, var.equal=TRUE))
 ```
 
-#####                      When is pairing helpful?
+##### When is pairing helpful?
 
 ```{r 2_2, echo=FALSE, w=6, h=2.75, top=1, rt=2, las=0, tcl=-0.4, results='hide', ps=8, mfrow=c(1,2), out.width="85%"}
 titl <- paste("Second versus first member, for each pair.  The first",
@@ -147,8 +153,10 @@ DAAG::onesamp(dset = DAAG::mignonette, x = "self", y = "cross",
 ```{r 2_2, eval=F}
 ```
 
-#####            What if the standard deviations are unequal?
+##### What if the standard deviations are unequal?
+
 #### Subsection 2.2.3: The normal approximation to the binomial
+
 #### Subsection 2.2.4: The Pearson or product--moment correlation
 
 ```{r B2_4a}
@@ -246,7 +254,7 @@ mtext(side=3, line=0.5, "C: NBI, worm plot", adj=0, cex=1.25); box(col='white')
 ```{r 2_4, eval=F}
 ```
 
-### Subsection 2.3.2: *Technical details -- extra-binomial or extra-Poisson variation
+### Subsection 2.3.2: \*Technical details -- extra-binomial or extra-Poisson variation
 
 ```{r B3_1i}
 sigma <- exp(coef(doBB, "sigma"))
@@ -276,8 +284,9 @@ degTAB
 chisq.test(degTAB, correct=FALSE)
 ```
 
-#####               The mechanics of the chi-squared test
-#####        An example where a chi-squared test may not be valid
+##### The mechanics of the chi-squared test
+
+##### An example where a chi-squared test may not be valid
 
 ```{r B4c}
 ## Engine man data
@@ -285,7 +294,7 @@ engineman <- matrix(c(5,3,17,85), 2,2)
 chisq.test(engineman)
 ```
 
-#####                 Rare and endangered plant species
+##### Rare and endangered plant species
 
 ```{r B4d}
 fisher.test(engineman)
@@ -301,7 +310,7 @@ rareplants <- matrix(c(37,190,94,23, 59,23,10,141, 28,15,58,16), ncol=3,
 (x2 <- chisq.test(rareplants))
 ```
 
-#####  Examination of departures from a consistent overall row pattern
+##### Examination of departures from a consistent overall row pattern
 
 ```{r B4h, echo=-1}
 options(digits=3)
@@ -315,9 +324,10 @@ options(digits=2)
 residuals(x2)
 ```
 
-#####                       Interpretation issues
+##### Interpretation issues
 
 ### Section 2.5 Issues for Regression with a single explanatory variable
+
 #### Subsection 2.5.1: Iron slag example --- check residuals with care!
 
 ```{r 2_5, echo=FALSE,  w=5.5, h=3.35, cex.lab=0.9,  left=-2, top=1,  rt=0.5, mgp=c(1.6,0.5,0), echo=FALSE, ps=10, mfrow=c(2,3), out.width="100%"}
@@ -416,16 +426,18 @@ caption = c("A: Residuals vs Fitted", "B: Normal Q-Q",
 ```{r 2_7, eval=F}
 ```
 
-#####                         Robust regression
+##### Robust regression
+
 #### Subsection 2.5.4: Standard errors and confidence intervals
-#####            Confidence intervals and tests for the slope
+
+##### Confidence intervals and tests for the slope
 
 ```{r B5_4a}
 SEb <- coef(summary(roller.lm))[2, 2]
 coef(roller.lm)[2] + qt(c(0.025,.975), 8)*SEb
 ```
 
-#####         SEs and confidence intervals for predicted values
+##### SEs and confidence intervals for predicted values
 
 ```{r B5_4b}
 ## Code to obtain fitted values and standard errors (SE, then SE.OBS)
@@ -459,7 +471,7 @@ mtext(side=3,line=0.75, "B: Son vs father heights", cex=1.2, adj=-0.25)
 round(coef(summary(galton.lm))[,-4],2)
 ```
 
-#####             Implications for design
+##### Implications for design
 
 ```{r 2_9, echo=FALSE, w=5, h=3, bot=2, lwd=0.75, ps=10, out.width="75%"}
 panelci<-function(data,...)
@@ -523,7 +535,8 @@ mtext(side = 3, line = 0.5, "B", adj = 0)
 ```{r 2_10, eval=F}
 ```
 
-#####                An alternative to a regression line
+##### An alternative to a regression line
+
 #### Subsection 2.5.6: Logarithmic and Power Transformations
 
 ```{r 2_11, w=6, h=3.6, left=-1, top=1.5, ps=10, tcl=-0.25, mfrow=c(2,3), echo=FALSE, out.width="80%"}
@@ -539,8 +552,10 @@ DAAG::powerplot(expr="exp(x)", ylab="")
 ```{r 2_11, eval=F}
 ```
 
-#####  General power transformations --- Box-Cox and Yeo-Johnson
+##### General power transformations --- Box-Cox and Yeo-Johnson
+
 #### Subsection 2.5.7: General forms of nonlinear response
+
 #### Subsection 2.5.8: Size and shape data -- allometric growth
 
 ```{r 2_12, w=3.25, h=2.7, top=1.25, rt=1, ps=10, tcl=-0.25, echo=FALSE, out.width="42%"}
@@ -580,7 +595,7 @@ g2.12()
 ```{r 2_12, eval=F}
 ```
 
-#####                  The  allometric growth equation
+##### The allometric growth equation
 
 ```{r B5_4f}
 options(scipen=4)
@@ -589,8 +604,10 @@ print(coef(summary(cfseal.lm)), digits=4)
 ```
 
 ### Section 2.6 Empirical assessment of predictive accuracy
+
 #### Subsection 2.6.1: The training/test approach, and cross-validation
-#####               Cross-validation -- a tutorial example
+
+##### Cross-validation -- a tutorial example
 
 ```{r 2_13, w=3.0, h=2.65, echo=FALSE, out.width="42%"}
 houseprices <- DAAG::houseprices
@@ -691,10 +708,12 @@ abline(1,0)
 ```{r 2_14, eval=F}
 ```
 
-#####                             Commentary
+##### Commentary
 
 ### Section 2.7 One- and two-way comparisons
+
 #### Subsection 2.7.1: One-way comparisons
+
 ```{r B7_1a}
 tomato <- data.frame(Weight = c(1.5, 1.9, 1.3, 1.5, 2.4, 1.5,   # Water
                                 1.5, 1.2, 1.2, 2.1, 2.9, 1.6,   # Nutrient
@@ -731,14 +750,15 @@ title(main="B: LSD, compared with Tukey HSD", adj=0.1, outer=T,
 BHH2::anovaPlot(tomato.aov)
 ```
 
-#####                   The analysis of variance table
+##### The analysis of variance table
 
 ```{r B7_1e}
 ## Do analysis of variance calculations
 anova(tomato.aov)
 ```
 
-#####                  Other multiple comparison tests
+##### Other multiple comparison tests
+
 #### Subsection 2.7.2: Regression versus qualitative comparisons -- issues of power
 
 ```{r 2_16, w=2.85, h=2.65, left=-1, mgp=c(2,0.5,0), echo=FALSE, out.width="42%"}
@@ -749,9 +769,11 @@ update(gph, par.settings=DAAG::DAAGtheme(color=FALSE, alpha=0.4))
 ```{r 2_16, eval=F}
 ```
 
-#### Subsection 2.7.3: *Severe multiplicity --- the false discovery rate
-#####          *Microarrays and alternatives --- technical note
-#####                   The false discovery rate (FDR)
+#### Subsection 2.7.3: \*Severe multiplicity --- the false discovery rate
+
+##### \*Microarrays and alternatives --- technical note
+
+##### The false discovery rate (FDR)
 
 ```{r B7_3a}
 coralPval <- DAAG::coralPval
@@ -819,14 +841,20 @@ print(update(gph, scales=list(tck=0.5), par.settings=pars, aspect=0.9),
 #### Subsection 2.7.5: Presentation issues
 
 ### Section 2.8 Data with a nested variation structure
+
 #### Subsection 2.8.1: Degrees of freedom considerations
+
 #### Subsection 2.8.2: General multi-way analysis of variance designs
 
 ### Section 2.9 Bayesian estimation -- further commentary and approaches
+
 #### Subsection 2.9.1: Bayesian estimation with normal priors and likelihood
+
 #### Subsection 2.9.2: Further comments on Bayes Factors
-#####             The Sellke calibration upper limit
-#####       A note on the Bayesian Information Criterion
+
+##### The Sellke calibration upper limit
+
+##### A note on the Bayesian Information Criterion
 
 ```{r B9_2a}
 pval <- c(.05,.01,.001); np <- length(pval)
@@ -866,28 +894,36 @@ plot(roller.mcmc, auto.layout=FALSE, ask=FALSE, col="gray", fg="gray")
 ```
 
 ### Section 2.10: Recap
-#####                 Regress $y$ on $x$, or $x$ on~$y$?
+
+##### Regress $y$ on $x$, or $x$ on\~$y$?
 
 ### Section 2.11: Further reading
 
 ### Exercises (2.12)
 
 2.2
+
 ```{r B12_2}
 ## UCBAdmissions is in the datasets package
 ## For each combination of margins 1 and 2, calculate the sum
 UCBtotal <- apply(UCBAdmissions, c(1,2), sum)
 ```
+
 2.2b
+
 ```{r B12_2b}
 apply(UCBAdmissions, 3, function(x)(x[1,1]*x[2,2])/(x[1,2]*x[2,1]))
 ```
+
 2.3
+
 ```{r B12_3AB}
 tabA <- array(c(30,30,10,10,15,5,30,10), dim=c(2,2,2))
 tabB <- array(c(30,30,20,10,10,5,20,25), dim=c(2,2,2))
 ```
+
 2.5
+
 ```{r B12_5}
 z.transform <- function(r) .5*log((1+r)/(1-r))
 z.inverse <- function(z) (exp(2*z)-1)/(exp(2*z)+1)
@@ -900,11 +936,15 @@ z.inverse(boot.ci(possum.boot, type="perc")$percent[4:5])
  # The 4th and 5th elements of the percent list element
  # hold the interval endpoints. See ?boot.ci
 ```
+
 2.11
+
 ```{r B12_11, fig.width=5, fig.height=4, out.width="40%"}
 with(pressure, MASS::boxcox(pressure ~ I(1/(temperature+273))))
 ```
+
 2.14
+
 ```{r B12_14}
 "funRel" <-
 function(x=leafshape$logpet, y=leafshape$loglen, scale=c(1,1)){
@@ -919,7 +959,9 @@ leafshape <- DAAG::leafshape
 funRel(scale=c(1,1))    # Take x and y errors as equally important
   # Note that all lines pass through (mean(x), mean(y))
 ```
+
 2.15
+
 ```{r B12_15}
 P <- rbind(
     c(1 , 0 , 0 , 0 , 0 , 0),
@@ -944,7 +986,9 @@ Markov <- function(N=15, initial.value=1, transition=P, stopval=NULL)
 }
  # Set `stopval=c(0,5)` to stop when  the player's fortune is $0 or $5
 ```
+
 2.16
+
 ```{r B12_16}
 Pb <- rbind(
   Sun = c(Sun=0.6, Cloud=0.2, Rain=0.2),
@@ -952,7 +996,9 @@ Pb <- rbind(
   Rain= c(0.4, 0.3, 0.3))
 Pb
 ```
+
 2.16b
+
 ```{r B12_16b}
 plotmarkov <-
   function(n=1000, width=101, start=0, transition=Pb, npanels=5){
@@ -974,4 +1020,22 @@ code <- knitr::knit_code$get()
 txt <- paste0("\n## ", names(code),"\n", sapply(code, paste, collapse='\n'))
 writeLines(txt, con="/Users/johnm1/pkgs/PGRcode/inst/doc/ch2.R")
 }
+```
+
+```{=html}
+<script src="https://giscus.app/client.js"
+        data-repo="ten-z/PGRTestBook"
+        data-repo-id="R_kgDOMEfiPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMEfiPs4Cf5L1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
 ```

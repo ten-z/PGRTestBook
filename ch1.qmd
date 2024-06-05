@@ -7,6 +7,7 @@ output:
       in_header: "preamble.tex"
     latex_engine: xelatex
 ---
+
 ```{css, echo=F}
 .colbox {
   padding: 1em;
@@ -43,19 +44,22 @@ opts_chunk[['set']](eval=FALSE)
 ## figure width and height arguments to `w` and `h`.
 Hmisc::knitrSet(basename="intro", fig.path="figs/g", lang="markdown")
 oldopt <- options(digits=4, formatR.arrow=FALSE, width=70, scipen=999)
-``` 
-
+```
 
 ##### Packages required (plus any dependencies)
+
 latticeExtra (lattice is a dependency); DAAG; car; MASS; AICcmodavg; BayesFactor; boot; MPV; ggplot2; tidyr
 
-Additionally, knitr and Hmisc are required in order to process the Rmd source file.  The prettydoc package is by default used to format the html output.
+Additionally, knitr and Hmisc are required in order to process the Rmd source file. The prettydoc package is by default used to format the html output.
 
-#####                          Chapter summary
-#####      A note on terminology --- variables, factors, and more!
+##### Chapter summary
+
+##### A note on terminology --- variables, factors, and more!
 
 ### Section 1.1: Questions, and data that may point to answers
+
 #### Subsection 1.1.1: A sample is a window into the wider population
+
 ```{r A1_1a}
 ## For the sequence below, precede with set.seed(3676)
 set.seed(3696)
@@ -73,15 +77,19 @@ split(sample(seq(1:10)), rep(c("Control","Treatment"), 5))
 # sample(1:10) gives a random re-arrangement (permutation) of 1, 2, ..., 10
 ```
 
-#####                          Cluster sampling
-#####            *A note on with-replacement samples
+##### Cluster sampling
+
+##### \*A note on with-replacement samples
+
 ```{r A1_1d}
 sample(1:10, replace=TRUE)
 ## sample(1:10, replace=FALSE) returns a random permutation of 1,2,...10
 ```
 
 #### Subsection 1.1.2: Formulating the scientific question
-#####               Example: a question about cuckoo eggs
+
+##### Example: a question about cuckoo eggs
+
 ```{r 1_1, fig.width=6, fig.height=3.5, echo=F, out.width='90%'}
 ## Code
 suppressPackageStartupMessages(library(latticeExtra, quietly=TRUE))
@@ -125,18 +133,31 @@ dotplot(species ~ length, data=cuckoos, alpha=0.4, xlab="Length of egg (mm)") +
 ```
 
 #### Subsection 1.1.3: Planning for a statistical analysis
-#####                        Understand the data
-#####                          Causal inference
-#####           What was measured? Is it the relevant measure?
-#####       Use relevant prior information in the planning stages
-#####                Subject area knowledge and judgments
-#####               The importance of clear communication
-#####                Data-based selection of comparisons
-#####             Models must be fit for their intended use
+
+##### Understand the data
+
+##### Causal inference
+
+##### What was measured? Is it the relevant measure?
+
+##### Use relevant prior information in the planning stages
+
+##### Subject area knowledge and judgments
+
+##### The importance of clear communication
+
+##### Data-based selection of comparisons
+
+##### Models must be fit for their intended use
+
 #### Subsection 1.1.4: Results that withstand thorough and informed challenge
+
 #### Subsection 1.1.5: Using graphs to make sense of data
-#####                       Graphical comparisons
+
+##### Graphical comparisons
+
 #### Subsection 1.1.6: Formal model-based comparison
+
 ```{r A1_3b}
 options(width=70)
 cuckoos <- DAAG::cuckoos
@@ -144,12 +165,12 @@ av <- with(cuckoos, aggregate(length, list(species=species), FUN=mean))
 setNames(round(av[["x"]],2), abbreviate(av[["species"]],10))
 ```
 
-```{r A1_3c} 
+```{r A1_3c}
 with(cuckoos, scale(length[species=="wren"], scale=FALSE))[,1] 
 ```
 
-
 ### Section 1.2: Graphical tools for data exploration
+
 #### Subsection 1.2.1: Displays of a single variable
 
 ```{r 1_2, fig.width=6, fig.height=4,  left=1.5, right=1, echo=FALSE, out.width="100%", warning=FALSE, message=FALSE}
@@ -193,9 +214,10 @@ update(c("B: Density curve, with histogram overlaid"=gphB,
 fossum <- subset(DAAG::possum, sex=="f")
 densityplot(~totlngth, plot.points=TRUE, pch="|", data=fossum) +
   layer_(panel.histogram(x, type="density", breaks=c(75,80,85,90,95,100)))
-```       
+```
 
-#####         Comparing univariate displays across factor levels
+##### Comparing univariate displays across factor levels
+
 ```{r 1_3, echo=FALSE, fig.width=6, fig.height=3.5, }
 ## Code
 possum <- DAAG::possum
@@ -251,7 +273,6 @@ mtext(side=3, line=0.5, "B (1841-1881)", adj=0, cex=1.15)
 ```{r 1_4, eval=F}
 ```
 
-
 #### Subsection 1.2.3: Visualizing relationships between pairs of variables
 
 ```{r 1_5, fig.width=8, fig.height=4, echo=FALSE, out.width="100%"}
@@ -286,6 +307,7 @@ ylab="Distance traveled (cm)")
 ```
 
 #### Subsection 1.2.5: Multiple variables and times
+
 ```{r A2_4a}
 ## Apply function range to columns of data frame jobs (DAAG)
 sapply(DAAG::jobs, range)  ## NB: `BC` = British Columbia
@@ -368,8 +390,10 @@ par(family="sans")
 ```{r 1_8, eval=F}
 ```
 
-#### Subsection 1.2.6: *Labeling technicalities
+#### Subsection 1.2.6: \*Labeling technicalities
+
 #### Subsection 1.2.7: Graphical displays for categorical data
+
 ```{r A2_5a}
 stones <- array(c(81,6,234,36,192,71,55,25), dim=c(2,2,2),
                 dimnames=list(Success=c("yes","no"),
@@ -423,14 +447,21 @@ legend("topleft", col=c('blue','red'),lty=c(1,1), lwd=1, cex=0.9,
 #### Subsection 1.2.8: What to look for in plots
 
 ##### Outliers
+
 ##### Asymmetry of the distribution
+
 ##### Changes in variability
+
 ##### Clustering
+
 ##### Nonlinearity
+
 ##### Time trends in the data
 
 ### Section 1.3: Data Summary
+
 #### Subsection 1.3.1: Counts
+
 ```{r A3_1a}
 ## Table of counts example: data frame nswpsid1 (DAAG)
 ## Specify `useNA="ifany"` to ensure that any NAs are tabulated
@@ -439,7 +470,8 @@ dimnames(tab) <- list(trt=c("none", "training"), educ = c("completed", "dropout"
 tab
 ```
 
-#####  Tabulation that accounts for frequencies or weights -- the `xtabs()` function
+##### Tabulation that accounts for frequencies or weights -- the `xtabs()` function
+
 ```{r A3_1b, echo=FALSE}
 nassCDS <- DAAG::nassCDS
 NIFrange <- range(nassCDS$weight, na.rm=T)
@@ -511,9 +543,12 @@ names(kiwimeans) <- c("block","shade","meanyield")
 head(kiwimeans, 4)  # First 4 rows
 ```
 
-#####       The benefits of data summary -- dengue status example
+##### The benefits of data summary -- dengue status example
+
 #### Subsection 1.3.3: Measures of variation
-#####                        Cuckoo eggs example
+
+##### Cuckoo eggs example
+
 ```{r A3_3a}
 options(width=72)
 ## SD of length, by species: data frame cuckoos (DAAG)
@@ -522,19 +557,22 @@ print(setNames(paste0(round(z[1,],2)," (",z[2,],")"),
                abbreviate(colnames(z),11)), quote=FALSE)
 ```
 
-#####                         Degrees of freedom
-#### Subsection 1.3.4: Inter-quartile range (IQR) and median absolute deviation (MAD)
-#### Subsection 1.3.5: A pooled standard deviation estimate
-#####                       Elastic bands example
+##### Degrees of freedom
 
-<<A3_5a>>=
-sapply(DAAG::two65, function(x) c(Mean=mean(x), sd=sd(x))) |> round(2)
-@
+#### Subsection 1.3.4: Inter-quartile range (IQR) and median absolute deviation (MAD)
+
+#### Subsection 1.3.5: A pooled standard deviation estimate
+
+##### Elastic bands example
+
+\<<A3_5a>\>= sapply(DAAG::two65, function(x) c(Mean=mean(x), sd=sd(x))) \|\> round(2) \@
 
 #### Subsection 1.3.6: Effect size
+
 ```{r A3_6a}
 setNames(diff(c(ambient=244.1, heated=253.5))/c(sd=10.91), "Effect size")
 ```
+
 Data are available in the data frame `DAAG::two65`.
 
 ```{r A3_6b, eval=FALSE}
@@ -572,6 +610,7 @@ xyplot(y ~ x | gp, data=xy, layout=c(4,1), xlab="", ylab="",
 ```
 
 ### Section 1.4: Distributions: quantifying uncertainty
+
 #### Subsection 1.4.1: Discrete distributions
 
 ```{r A4_2a}
@@ -611,13 +650,15 @@ raisins <- rpois(20, 3)
 raisins
 ```
 
-#####              Initializing the random number generator
+##### Initializing the random number generator
+
 ```{r A4_2h}
 set.seed(23286)  # Use to reproduce the sample below
 rbinom(15, size=1, p=0.5)
 ```
 
-#####                        Means and variances
+##### Means and variances
+
 #### Subsection 1.4.2: Continuous distributions
 
 ```{r 1_13, w=4, h=3.6, ps=12, left=-2, mgp=c(2.0,0.5,0), tcl=-0.3, echo=FALSE}
@@ -663,8 +704,10 @@ qnorm(c(.1,.2,.3))   # -1.282 -0.842 -0.524  (10th, 20th and 30th percentiles)
 qnorm(.1, mean=100, sd=10)  # 87.2 (10th percentile, mean=100, SD=10)
 ```
 
-#####             Different ways to represent distributions
-#####  Generating simulated samples from the normal and other continuous distributions
+##### Different ways to represent distributions
+
+##### Generating simulated samples from the normal and other continuous distributions
+
 ```{r A4_3g}
 options(digits=2)  # Suggest number of digits to display
 rnorm(10)          # 10 random values from the normal distribution
@@ -742,6 +785,7 @@ rexp(n=10, rate=3)          # 10 numbers, exponential, mean 1/3.
 ```
 
 #### Subsection 1.4.3: Graphical checks for normality
+
 ```{r A4_4a}
 tab <- t(as.matrix(DAAG::pair65))
 rbind(tab,"heated-ambient"=tab[1,]-tab[2,])
@@ -758,7 +802,8 @@ update(plt, scales=list(tck=0.4), xlab="")
 ```
 
 #### Subsection 1.4.4: Population parameters and sample statistics
-#####               The sampling distribution of the mean
+
+##### The sampling distribution of the mean
 
 ```{r 1_16, echo=FALSE, w=8, h=6.75, left=1, top=1, out.width="85%"}
 library(lattice)
@@ -781,9 +826,11 @@ print(update(gph, scales=list(tck=0.4), layout = c(3,1),
 
 ```{r 1_16, eval=F}
 ```
-                                 
-#####                  The standard error of the median
-#####                Simulation in learning and research
+
+##### The standard error of the median
+
+##### Simulation in learning and research
+
 #### Subsection 1.4.5: The $t$-distribution
 
 ```{r 1_17, echo=FALSE, w=8, h=6.5, bot=2.5, top=1.5, las=0, xpd=TRUE, tcl=-0.3, cex.lab=0.9, echo=FALSE, ps=10, mfrow=c(2,2), out.width="90%"}
@@ -868,13 +915,15 @@ qt(c(0.975, 0.995), df=8)        # t-distribution with 8 d.f.
 #### Subsection 1.4.6: The likelihood, and maximum likelihood estimation
 
 ### Section 1.5: Simple forms of regression model
+
 #### Subsection 1.5.1: Line or curve?
+
 ```{r A5_1a}
 roller <- DAAG::roller
 t(cbind(roller, "depression/weight ratio"=round(roller[,2]/roller[,1],2)))
 ```
 
-#####                      Using models to predict
+##### Using models to predict
 
 ```{r 1_18, echo=FALSE, w=8, h=3.7, top=1.5, tcl=-0.3, cex.lab=0.9, echo=FALSE, ps=9, mfrow=c(1,2), out.width="90%"}
 y <- DAAG::roller$depression
@@ -929,8 +978,10 @@ text(x[ns] + 0.4*chw, ypos, "-ve residual", adj = 0,cex=0.75,col="gray30")
 ```{r 1_18, eval=F}
 ```
 
-#####               Which model is best --- line or curve?
+##### Which model is best --- line or curve?
+
 #### Subsection 1.5.2: Fitting models -- the model formula
+
 ```{r A5_2a, eval=xtras}
 ## Fit line - by default, this fits intercept & slope.
 roller.lm <- lm(depression ~ weight, data=DAAG::roller)
@@ -945,7 +996,8 @@ abline(roller.lm)
 lm(depression ~ 0 + weight, data=roller)  # Or, if preferred, replace `0` by `-1`
 ```
 
-#####                           Model objects
+##### Model objects
+
 ```{r A5_2c}
 roller.lm <- lm(depression ~ weight, data=DAAG::roller)
 names(roller.lm)     # Get names of list elements
@@ -969,7 +1021,7 @@ roller.lm$coef            # An alternative is roller.lm[["coef"]]
 print(summary(roller.lm), digits=3)
 ```
 
-#####                           Residual plots
+##### Residual plots
 
 ```{r 1_19, echo=FALSE, w=7.2, h=4.8, ps=10, out.width="80%"}
 ## Normal quantile-quantile plot, plus 7 reference plots
@@ -979,7 +1031,8 @@ DAAG::qreference(residuals(roller.lm), nrep=8, nrows=2, xlab="")
 ```{r 1_19, eval=F}
 ```
 
-#####                   Simulation of regression data
+##### Simulation of regression data
+
 ```{r A5_2i}
 roller.lm <- lm(depression ~ weight, data=DAAG::roller)
 roller.sim <- simulate(roller.lm, nsim=20)  # 20 simulations
@@ -991,20 +1044,23 @@ points(DAAG::roller, pch=16)
 ```
 
 #### Subsection 1.5.3: The model matrix in regression
+
 ```{r A5_3a}
 model.matrix(roller.lm)
 ## Specify coef(roller.lm) to obtain the column multipliers.
 ```
 
-#####        From straight line regression to multiple regression
+##### From straight line regression to multiple regression
+
 ```{r A5_3b}
 mouse.lm <- lm(brainwt ~ lsize+bodywt, data=DAAG::litters)
 coef(summary(mouse.lm))
 ```
 
-
 ### Section 1.6: Data-based judgments -- frequentist, in a Bayesian world
+
 #### Subsection 1.6.1: Inference with known prior probabilities
+
 ```{r A6_1a}
 ## `before` is the `prevalence` or `prior`. 
 after <- function(prevalence, sens, spec){
@@ -1015,8 +1071,10 @@ setNames(round(after(prevalence=c(0.002, 0.02, 0.2), sens=.8, spec=.95), 3),
          c("Prevalence=0.002", "Prevalence=0.02", "Prevalence=0.2"))
 ```
 
-#####   Relating 'incriminating' evidence to the probability of guilt
+##### Relating 'incriminating' evidence to the probability of guilt
+
 #### Subsection 1.6.2: Treatment differences that are on a continuous scale
+
 ```{r A6_2a}
 ## Use pipe syntax, introduced in R 4.1.0
 sleep <- with(datasets::sleep, extra[group==2] - extra[group==1])
@@ -1036,13 +1094,16 @@ sleep |> (function(x)c(mean = mean(x), SD = sd(x), n=length(x)))() |>
 t.test(sleep, conf.level=0.95)
 ```
 
-#####                         An hypothesis test
+##### An hypothesis test
+
 ```{r A6_2d}
 pt(4.06, 9, lower.tail=F)
 ```
 
-#####      The $p$-value probability relates to a decision process
+##### The $p$-value probability relates to a decision process
+
 #### Subsection 1.6.3: Use of simulation with $p$-values
+
 ```{r A6_2e}
 eff2stat <- function(eff=c(.2,.4,.8,1.2), n=c(10,40), numreps=100,
                      FUN=function(x,N)pt(sqrt(N)*mean(x)/sd(x), df=N-1, 
@@ -1081,6 +1142,7 @@ eff40 <- with(subset(df200, N==40&effsize==0.2), c(gt5pc=sum(stat>0.05), lohi=fi
 ```
 
 #### Subsection 1.6.4: Power --- minimizing the chance of false positives
+
 ```{r A6_3a}
 tf1 <- rbind('R=0.2'=c(0.8*50, 0.05*250),
 'R=1'=c(0.8*150, 0.05*150),
@@ -1094,7 +1156,8 @@ rownames(tf) <- rownames(tf1)
 print(tf, quote=FALSE)
 ```
 
-#####                   Power calculations -- examples
+##### Power calculations -- examples
+
 ```{r A6_3b}
 power.t.test(d=0.5, sig.level=0.05, type="one.sample", power=0.8)
 pwr1 <- power.t.test(d=0.5, sig.level=0.005, type="one.sample", power=0.8)
@@ -1131,7 +1194,7 @@ print(tab[,4:6], quote=F)
 ```{r A6_3c}
 ```
 
-#####          Positive Predictive Values
+##### Positive Predictive Values
 
 ```{r 1_21, w=6, h=4.8, mgp=c(1.85,.5,0), echo=FALSE, out.width="60%"}
 R <- pretty(0:3, 40)
@@ -1149,12 +1212,17 @@ update(gph, scales=list(tck=0.5), key=key)
 ```
 
 #### Subsection 1.6.5: The future for $p$-values
-#####                  How small a $p$-value is needed?
+
+##### How small a $p$-value is needed?
+
 #### Subsection 1.6.6: Reporting results
-#####            Is there an alternative that is more likely?
+
+##### Is there an alternative that is more likely?
 
 ### Section 1.7: Information statistics and Bayesian methods with Bayes Factors
+
 #### Subsection 1.7.1: Information statistics -- using likelihoods for model choice
+
 ```{r A7_3a}
 ## Calculations using mouse brain weight data
 mouse.lm <- lm(brainwt ~ lsize+bodywt, data=DAAG::litters)
@@ -1166,7 +1234,7 @@ c("AICc" = AICcmodavg::AICc(mouse.lm), fromlogL=k*p-2*logLik(mouse.lm)[1],
   fromFit=k*p + RSSlogLik) |> print(digits=4)
 ```
 
-#####    The sampling properties of the difference in AIC statistics
+##### The sampling properties of the difference in AIC statistics
 
 ```{r 1_22, w=6.5, h=3.2, echo= FALSE, out.width="100%"}
 sim0vs1 <- function(mu=0, n=15, ntimes=200){
@@ -1202,6 +1270,7 @@ tab
 ```
 
 #### Subsection 1.7.2: Bayesian methods with Bayes Factors
+
 ```{r A7_4a}
 ## Setting `scale=1/sqrt(2)` gives a mildly narrower distribution
 print(c("pcauchy(1, scale=1)"=pcauchy(1, scale=1), 
@@ -1209,7 +1278,7 @@ print(c("pcauchy(1, scale=1)"=pcauchy(1, scale=1),
       quote=FALSE)
 ```
 
-#####     The Cauchy prior with different choices of scale parameter
+##### The Cauchy prior with different choices of scale parameter
 
 ```{r 1_23, echo=FALSE, w=8.0, h=3.5, bot=0.5, top=2, tcl=-0.3, cex.lab=0.9,  fig.show="hold", mfrow=c(1,2)}
 x <- seq(from=-4.5, to=4.5, by=0.1)
@@ -1257,7 +1326,8 @@ simpost <- BayesFactor::posterior(ttBF0, iterations=10000)
 plot(density(simpost[,'mu']))
 ```
 
-#####                        A thought experiment
+##### A thought experiment
+
 ```{r A7_4c}
 tval <- setNames(qt(1-c(.05,.01,.005)/2, df=19), paste(c(.05,.01,.005)))
 bf01 <- setNames(numeric(3), paste(c(.05,.01,.005)))
@@ -1280,7 +1350,8 @@ pval <- t.test(pairedDiffs)[['p.value']]
 1/(-exp(1)*pval*log(pval))
 ```
 
-#####               A null interval may make better sense
+##### A null interval may make better sense
+
 ```{r A7_4f}
 min45 <- round(0.75/sd(pairedDiffs),2)   ## Use standardized units
 ttBFint <- BayesFactor::ttestBF(pairedDiffs, nullInterval=c(-min45,min45))
@@ -1291,7 +1362,7 @@ round(as.data.frame(ttBFint)['bf'],3)
 bf01 <- as.data.frame(ttBFint)[['bf']]
 ```
 
-#####                 The effect of changing sample size
+##### The effect of changing sample size
 
 ```{r 1_24a}
 t2bfInterval <- function(t, n=10, rscale="medium", mu=c(-.1,.1)){
@@ -1358,7 +1429,8 @@ plot(gphB, position=c(0.52, 0, 1, 1), par.settings=DAAG::DAAGtheme(color=T))
 ```{r 1_24, eval=F}
 ```
 
-#####          Different statistics give different perspectives
+##### Different statistics give different perspectives
+
 ```{r A7_h}
 n1 <- BayesFactor::ttest.tstat(qt(0.00001, df=40), n1=40, simple=T)
 n2 <- BayesFactor::ttest.tstat(qt(0.000001, df=40), n1=40, simple=T)
@@ -1377,16 +1449,19 @@ knitr::kable(matrix(c("A bare mention","Positive","Strong","Very strong"), nrow=
       midrule='', vline="")
 ```
 
-#####  *Technical details of the family of priors used in  the BayesFactor package
+##### \*Technical details of the family of priors used in the BayesFactor package
 
 ### Section 1.8: Resampling methods for SEs, tests and confidence intervals
+
 #### Subsection 1.8.1: The one-sample permutation test
+
 ```{r A8_1a}
 tab <- t(as.matrix(DAAG::pair65))
 rbind(tab,"heated-ambient"=tab[1,]-tab[2,])
 ```
 
 #### Subsection 1.8.2: The two-sample permutation test
+
 ```{r 1_25, echo=F, fig.width=5.5, fig.height=5, out.width="50%"}
 ## First of 3 curves; permutation distribution of difference in means
 two65 <- DAAG::two65
@@ -1428,6 +1503,7 @@ legend(x=20, y=0.078, title="P-values are", cex=1, xpd=TRUE,
 ```
 
 #### Subsection 1.8.3: Estimating the standard error of the median: bootstrapping
+
 ```{r A8_3a, message=FALSE}
 ## Bootstrap estimate of median of wren length: data frame cuckoos
 wren <- subset(DAAG::cuckoos, species=="wren")[, "length"]
@@ -1442,13 +1518,16 @@ set.seed(23)
 ```
 
 #### Subsection 1.8.4: Bootstrap estimates of confidence intervals
-#####         Bootstrap 95\% confidence intervals for the median
+
+##### Bootstrap 95% confidence intervals for the median
+
 ```{r A8_4a}
 ## Call the function boot.ci() , with boot.out=wren.boot
 boot.ci(boot.out=wren.boot, type=c("perc","bca"))
 ```
 
-#####                    The correlation coefficient
+##### The correlation coefficient
+
 ```{r A8_4b}
 ## Bootstrap estimate of 95% CI for `cor(chest, belly)`: `DAAG::possum`
 corr.fun <- function(data, indices) 
@@ -1462,32 +1541,48 @@ library(boot)
 boot.ci(boot.out = corr.boot, type = c("perc", "bca"))
 ```
 
-#####                 The bootstrap -- parting comments
+##### The bootstrap -- parting comments
 
 ### Section 1.9: Organizing and managing work, and tools that can assist
-#####           The RStudio Integrated Development Environment
+
+##### The RStudio Integrated Development Environment
+
 #### Subsection 1.9.1: Reproducible reporting --- the knitr package
 
 ### Section 1.10: The changing environment for data analysis
+
 #### Subsection 1.10.1: Models and machine learning
-#####           The limits of current machine learning systems
-#####                     Traps in big data analysis
-#####       Of mice and machine learning --- missing data   values
-#####            Humans are not good intuitive statisticians
+
+##### The limits of current machine learning systems
+
+##### Traps in big data analysis
+
+##### Of mice and machine learning --- missing data values
+
+##### Humans are not good intuitive statisticians
+
 #### Subsection 1.10.2: Replicability is the definitive check
-#####  To what extent is published work replicable? What is the evidence?
-#####                   Some major replication studies
-#####           Replicability in pre-clinical cancer research
-#####        Studies where there may be strong social influences
-#####            The scientific study of scientific processes
-#####            Would lowering the $p$-value threshold help?
-#####              Peer review at the study planning stage
+
+##### To what extent is published work replicable? What is the evidence?
+
+##### Some major replication studies
+
+##### Replicability in pre-clinical cancer research
+
+##### Studies where there may be strong social influences
+
+##### The scientific study of scientific processes
+
+##### Would lowering the $p$-value threshold help?
+
+##### Peer review at the study planning stage
 
 ### Section 1.11: Further, or supplementary, reading
 
 ### Exercises (1_12)
 
 1.4
+
 ```{r A10_4}
 Animals <- MASS::Animals
 manyMals <- rbind(Animals, sqrt(Animals), Animals^0.1, log(Animals))
@@ -1498,13 +1593,17 @@ manyMals$transgp <- with(manyMals, factor(transgp, levels=unique(transgp)))
 lattice::xyplot(brain~body|transgp, data=manyMals,
   scales=list(relation='free'), layout=c(2,2))
 ```
+
 1.5
+
 ```{r A10_5}
 with(Animals, c(cor(brain,body), cor(brain,body, method="spearman")))
 with(Animals, c(cor(log(brain),log(body)),
   cor(log(brain),log(body), method="spearman")))
 ```
+
 1.9
+
 ```{r A10_9}
 usableDF <- DAAG::cuckoohosts[c(1:6,8),]
 nr <- nrow(usableDF)
@@ -1514,7 +1613,9 @@ with(usableDF, {
   text(hlength, hbreadth, abbreviate(rownames(usableDF),8), pos=c(2,4,2,1,2,4,2))
 })
 ```
+
 1.10
+
 ```{r A10_10}
 ## Take a random sample of 100 values from the normal distribution
 x <- rnorm(100, mean=3, sd=5)
@@ -1527,19 +1628,25 @@ curve(lsfun, from=xbar-0.01, to=xbar+0.01)
 ```{r A10_11, eval=F}
 boxplot(avs, meds, horizontal=T)
 ```
+
 1.15
+
 ```{r A10_15}
 x <- rpois(7, 78.3)
 mean(x); var(x)
 ```
+
 1.16
+
 ```{r A10_16}
 nvals100 <- rnorm(100)
 heavytail <- rt(100, df = 4)
 veryheavytail <- rt(100, df = 2)
 boxplot(nvals100, heavytail, veryheavytail, horizontal=TRUE)
 ```
+
 1.19
+
 ```{r A10_19}
 boxdists <- function(n=1000, times=10){
   df <- data.frame(normal=rnorm(n*times), t=rt(n*times, 7),
@@ -1548,20 +1655,26 @@ boxdists <- function(n=1000, times=10){
                   horizontal=T)
 }
 ```
+
 1.20
+
 ```{r A10_20}
 a <- 1
 form <- ~rchisq(1000,1)^a+rchisq(1000,25)^a+rchisq(1000,500)^a
 lattice::qqmath(form, scales=list(relation="free"), outer=TRUE)
 ```
+
 1.21
+
 ```{r A10_21}
 y <- rnorm(51)
 ydep <- y1[-1] + y1[-51]
 acf(y)      # acf plots `autocorrelation function'(see Chapter 6)
 acf(ydep)
 ```
+
 1.24
+
 ```{r A10_24}
 ptFun <- function(x,N)pt(sqrt(N)*mean(x)/sd(x), df=N-1, lower.tail=FALSE)
 simStat <- function(eff=.4, N=10, nrep=200, FUN)
@@ -1574,13 +1687,17 @@ labx <- c(0.0001, 0.001, 0.005, 0.01, 0.05, 0.1, 0.25)
 bwplot(~I(pval^0.2), scales=list(x=list(at=labx^0.2, labels=paste(labx))),
        xlab=expression("P-value (scale is "*p^{0.2}*")") )
 ```
+
 1.24a
+
 ```{r A10_24a}
 pvalDF <- subset(df200, effsize==0.4 & N==10)$stat
 plot(sort(pval^0.2), sort(pvalDF^0.2))
 abline(0,1)
 ```
+
 1.24c
+
 ```{r A10_24c}
 ## Estimated effect sizes: Set `FUN=effFun` in the call to `eff2stat()`
 effFun <- function(x,N)mean(x)/sd(x)   
@@ -1590,11 +1707,15 @@ BFfun <- function(x,N)BayesFactor::ttest.tstat(sqrt(N)*mean(x)/sd(x),
                                                n1=N, simple=T)
   # A few very large Bayes Factors are likely to dominate the plots
 ```
+
 1.27
+
 ```{r A10_27}
 (degC <- setNames(c(21,30,38,46),paste('rep',1:4)) ) 
 ```
+
 1.27a
+
 ```{r A10_27a}
 radonC <- tidyr::pivot_longer(MPV::radon, names_to='key', 
                               cols=names(degC), values_to='percent')
@@ -1605,12 +1726,16 @@ lattice::xyplot(percent ~ temp|factor(diameter), data = radonC)
 ```{r A10_27c}
 matplot(scale(t(MPV::radon[,-1])), type="l", ylab="scaled residuals")  
 ```
+
 1.27d
+
 ```{r A10_27d}
 radon.res <- aggregate(percent ~ diameter, data = radonC, FUN = scale, 
     scale = FALSE)
 ```
+
 1.30
+
 ```{r A10_30}
 diamonds <- ggplot2::diamonds
 with(diamonds, plot(carat, price, pch=16, cex=0.25))
@@ -1666,4 +1791,22 @@ code <- knitr::knit_code$get()
 txt <- paste0("\n## ", names(code),"\n", sapply(code, paste, collapse='\n'))
 writeLines(txt, con="/Users/johnm1/pkgs/PGRcode/inst/doc/ch1.R")
 }
+```
+
+```{=html}
+<script src="https://giscus.app/client.js"
+        data-repo="ten-z/PGRTestBook"
+        data-repo-id="R_kgDOMEfiPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMEfiPs4Cf5L1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
 ```

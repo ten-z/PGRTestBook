@@ -17,6 +17,8 @@ book:
   
   comments:
     hypothesis: true
+    giscus:
+      repo: ten-z/PGRTestBook
 
   chapters:
     - index.qmd
@@ -34,9 +36,17 @@ book:
   navbar:
     pinned: true
     title: false
+    
     left:
-      - text: "Home"
-        href: https://ten-z.github.io/SupplementsTest/
+      - text: "Code and Supplements"
+        menu: 
+          - text: "Supplements"
+            href: https://ten-z.github.io/SupplementsTest/
+          - text: "Answers to selected exercises"
+            href: https://jhmaindonald.github.io/PGRselected/
+          - text: "Afterword"
+            href: https://ten-z.github.io/SupplementsTest/afterword.html
+            
       - text: "Practical Guide"
         href: https://ten-z.github.io/SupplementsTest/about.html
       - text: "Blog"
@@ -47,8 +57,6 @@ book:
     right: 
       - text: "Resources"
         menu:
-          - text: "Afterword"
-            href: https://ten-z.github.io/SupplementsTest/afterword.html
           - text: "Ways to Use Code"
             href: https://ten-z.github.io/SupplementsTest/RunningCode.html
           - text: "Code for Selected Figures"
